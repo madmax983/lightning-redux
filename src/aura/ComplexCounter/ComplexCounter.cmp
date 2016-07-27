@@ -1,0 +1,12 @@
+<aura:component description="ComplexCounter">
+    <aura:registerEvent name="storeInitialized" type="c:storeInitialized"/>
+    <aura:handler event="c:ReduxLoaded" action="{!c.handleReduxLoaded}" />
+    <c:Redux/>
+    <c:Provider aura:id="provider">
+        <c:Counter/>
+        <br/>
+        <c:Counter/>
+        <br/>
+        <c:Counter/>
+    </c:Provider>
+</aura:component>

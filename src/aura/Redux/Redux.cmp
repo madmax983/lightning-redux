@@ -1,0 +1,5 @@
+<aura:component description="Redux">
+    <ltng:require scripts="{!$Resource.redux}"
+                  afterScriptsLoaded="{!c.afterReduxLoaded}" />
+    <aura:registerEvent name="ReduxLoaded" type="c:ReduxLoaded"/>
+</aura:component>
