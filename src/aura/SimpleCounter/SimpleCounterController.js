@@ -10,7 +10,7 @@
         store.subscribe(handleChanges);
     },
 
-    clickIncrement: function(component, event, helper) {
+    clickIncrement: function(component) {
         function increment() {
             return {
                 type: 'INCREMENT'
@@ -21,7 +21,7 @@
         store.dispatch(increment());
     },
 
-    clickDecrement: function(component, event, helper) {
+    clickDecrement: function(component) {
         function decrement() {
             return {
                 type: 'DECREMENT'

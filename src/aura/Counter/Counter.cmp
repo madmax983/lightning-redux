@@ -1,4 +1,5 @@
 <aura:component description="Counter">
+    <aura:attribute name="counter" description="Counter" access="public" type="Integer" />
     <aura:handler name="change" value="{!v.store}" action="{!c.handleStoreChange}"/>
     <ui:button label="+" press="c.clickIncrement"/>
     <ui:button  label="-" press="c.clickDecrement"/>

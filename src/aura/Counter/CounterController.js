@@ -1,10 +1,10 @@
 ({
-    handleStoreChange: function(component, event, helper) {
+    handleStoreChange: function(component) {
         var store = component.get("v.store");
         component.set("v.counter", store.getState());
     },
 
-    clickIncrement: function(component, event, helper) {
+    clickIncrement: function(component) {
         function increment() {
             return {
                 type: 'INCREMENT'
@@ -15,7 +15,7 @@
         store.dispatch(increment());
     },
 
-    clickDecrement: function(component, event, helper) {
+    clickDecrement: function(component) {
         function decrement() {
             return {
                 type: 'DECREMENT'
