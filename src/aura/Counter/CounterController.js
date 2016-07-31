@@ -8,7 +8,7 @@
         function increment() {
             return {
                 type: 'INCREMENT'
-            }
+            };
         }
 
         var store = component.get("v.store");
@@ -19,7 +19,7 @@
         function decrement() {
             return {
                 type: 'DECREMENT'
-            }
+            };
         }
 
         var store = component.get("v.store");

@@ -6,8 +6,8 @@
             case 'DECREMENT':
                 return state - 1;
             default:
-                state = 0;
-                return state;
+                var defaultState = 0;
+                return defaultState;
         }
     }
 })

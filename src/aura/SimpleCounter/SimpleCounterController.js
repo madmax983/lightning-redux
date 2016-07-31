@@ -1,5 +1,7 @@
 ({
     afterReduxLoaded : function(component, event, helper) {
+        /*eslint no-use-before-define:0*/
+        var Redux = Redux || {};
         component.set("v.store", Redux.createStore(helper.counter));
         var store = component.get("v.store");
         component.set("v.counter", store.getState());
@@ -14,7 +16,7 @@
         function increment() {
             return {
                 type: 'INCREMENT'
-            }
+            };
         }
 
         var store = component.get("v.store");
@@ -25,7 +27,7 @@
         function decrement() {
             return {
                 type: 'DECREMENT'
-            }
+            };
         }
 
         var store = component.get("v.store");
