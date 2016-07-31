@@ -1,0 +1,22 @@
+{
+  "name": "dreamforce16-lightning-redux",
+  "version": "1.0.0",
+  "description": "dreamforce16 lightning redux",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/madmax983/dreamforce16-lightning-redux.git"
+  },
+  "author": "Mark Masterson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/madmax983/dreamforce16-lightning-redux/issues"
+  },
+  "homepage": "https://github.com/madmax983/dreamforce16-lightning-redux#readme",
+  "devDependencies": {
+    "eslint": "^3.2.0"
+  }
+}
