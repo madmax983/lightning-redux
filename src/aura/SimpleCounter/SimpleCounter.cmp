@@ -2,6 +2,7 @@
     <ltng:require scripts="{!$Resource.redux}"
                   afterScriptsLoaded="{!c.afterReduxLoaded}" />
     <aura:attribute required="false" name="store" description="Redux Store" access="public" type="Object" />
+    <aura:attribute required="false" name="counter" description="Counter" access="public" type="Integer" />
     <ui:button label="+" press="c.clickIncrement"/>
     <ui:button  label="-" press="c.clickDecrement"/>
     <ui:outputNumber value="{!v.counter}" />
