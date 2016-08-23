@@ -1,3 +1,0 @@
-<aura:interface description="ReduxConnection">
-    <aura:attribute required="false" name="store" description="Redux Store" access="public" type="Object" />
-</aura:interface>
