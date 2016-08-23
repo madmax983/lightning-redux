@@ -3,10 +3,10 @@
     <ltng:require scripts="{!$Resource.redux}"
                   afterScriptsLoaded="{!c.afterReduxLoaded}" />
     <c:Provider aura:id="provider">
-        <c:Counter/>
+        <c:Counter />
         <br/>
-        <c:Counter/>
+        <c:Counter />
         <br/>
-        <c:Counter/>
+        <c:Counter />
     </c:Provider>
 </aura:component>
