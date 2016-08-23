@@ -1,6 +1,6 @@
 ({
-    handleStoreChange: function(component) {
-        var store = component.get("v.store");
+    handleStoreChange: function(component, event) {
+        var store = event.getParam("store");
         component.set("v.counter", store.getState());
     },
 
@@ -11,8 +11,9 @@
             };
         }
 
-        var store = component.get("v.store");
-        store.dispatch(increment());
+        var dispatchAction = $A.get("e.c:dispatchAction");
+        dispatchAction.setParams({"action" : increment});
+        dispatchAction.fire();
     },
 
     clickDecrement: function(component) {
@@ -22,7 +23,8 @@
             };
         }
 
-        var store = component.get("v.store");
-        store.dispatch(decrement());
+        var dispatchAction = $A.get("e.c:dispatchAction");
+        dispatchAction.setParams({"action" : decrement});
+        dispatchAction.fire();
     }
 })

@@ -1,6 +1,7 @@
-<aura:component description="Counter" implements="c:ReduxConnection">
+<aura:component description="Counter">
     <aura:attribute name="counter" description="Counter" access="public" type="Integer" />
-    <aura:handler name="change" value="{!v.store}" action="{!c.handleStoreChange}"/>
+    <aura:registerEvent name="dispatchAction" type="c:dispatchAction"/>
+    <aura:handler event="c:reduxStoreChange" action="{!c.handleStoreChange}"/>
     <ui:button label="+" press="c.clickIncrement"/>
     <ui:button  label="-" press="c.clickDecrement"/>
     <ui:outputNumber value="{!v.counter}" />
