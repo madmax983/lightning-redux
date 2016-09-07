@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>ReducersCombined</members>
+        <members>RootReducer</members>
+        <members>importReducer</members>
+        <members>reducer</members>
+        <members>storeInitialized</members>
+        <name>AuraDefinitionBundle</name>
+    </types>
+    <types>
+        <members>redux</members>
+        <name>StaticResource</name>
+    </types>
+    <version>37.0</version>
+</Package>
