@@ -9,3 +9,4 @@ build.properties
 
 #node_modules
 node_modules/
+jsforce.config.json

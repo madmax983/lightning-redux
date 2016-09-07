@@ -5,7 +5,6 @@
         <members>RootReducer</members>
         <members>importReducer</members>
         <members>reducer</members>
-        <members>storeInitialized</members>
         <name>AuraDefinitionBundle</name>
     </types>
     <types>

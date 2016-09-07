@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/madmax983/dreamforce16-lightning-redux#readme",
   "devDependencies": {
-    "eslint": "^3.2.0"
+    "eslint": "^3.2.0",
+    "gulp": "^3.9.0",
+    "gulp-jsforce-deploy": "^1.0.1",
+    "gulp-zip": "^3.0.2"
   }
 }
