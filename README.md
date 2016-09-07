@@ -30,6 +30,8 @@ deploy:examples - deploy all of the examples
 
 deploy:kitchensink - DEPLOY ALL THE THINGS!
 
+After deploying, you will want to create a Preview style app to plunk the components in to see them. 
+Or take that Todo example, implement flexipage:availableForAllPageTypes", and plunk it down on your Lightning Experience homepage. 
 
 TODO:
 
