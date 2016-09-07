@@ -1,3 +1,3 @@
 <aura:application description="Preview">
-    <c:ComplexCounter />
+    <c:todoApp/>
 </aura:application>

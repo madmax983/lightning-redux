@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="ReducersCombined">
+    <aura:attribute name="rootReducer" type="Object"/>
+</aura:event>

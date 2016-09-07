@@ -6,6 +6,9 @@
         reduxStoreChange.setParams({"store" : store});
         reduxStoreChange.fire();
         function handleChanges() {
+            store = component.get("v.store");
+            console.log('Provider - handleChanges');
+            console.log(store.getState());
             var reduxStoreChange = $A.get("e.c:reduxStoreChange");
             reduxStoreChange.setParams({"store" : store});
             reduxStoreChange.fire();
@@ -14,10 +17,14 @@
     },
 
     handleDispatch: function(component, event) {
+        console.log('Provider - handleDispatch');
         var action = event.getParam("action"),
             store = component.get("v.store");
-        if(typeof action === "function") {
-            store.dispatch(action());
+        switch(typeof action){
+            case "function":
+                return store.dispatch(action());
+            case "object":
+                store.dispatch(action);
         }
     }
 })

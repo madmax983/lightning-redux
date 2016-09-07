@@ -1,0 +1,9 @@
+<aura:component description="Reducer" abstract="true" extensible="true">
+    <aura:attribute required="false" name="name" description="Name" access="public" type="String" />
+    <aura:method name="reducer" action="{!c.reducer}"
+                 description="Main Reducer for Todo App">
+        <aura:attribute name="state" type="Object" />
+        <aura:attribute name="action" type="Object" />
+    </aura:method>
+    <aura:registerEvent name="importReducer" type="c:importReducer"/>
+</aura:component>

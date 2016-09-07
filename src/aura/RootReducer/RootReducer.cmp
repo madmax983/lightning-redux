@@ -1,0 +1,9 @@
+<aura:component description="RootReducer">
+    <ltng:require scripts="{!$Resource.redux}"
+                  afterScriptsLoaded="{!c.afterReduxLoaded}" />
+    <aura:registerEvent name="ReducersCombined" type="c:ReducersCombined"/>
+    <aura:handler event="c:importReducer" action="{!c.handleImportReducer}" />
+    <aura:attribute required="false" name="rootReducer" description="Root Reducer" access="public" type="Object"/>
+    <aura:attribute required="false" name="register" description="Registered Reducers" access="public" type="String[]" />
+        {!v.body}
+</aura:component>
