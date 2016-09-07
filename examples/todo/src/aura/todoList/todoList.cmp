@@ -1,0 +1,36 @@
+<aura:component description="todoList" controller="TodoController">
+    <!--Import Lightning Design System-->
+    <ltng:require styles="/resource/SLDS203/assets/styles/salesforce-lightning-design-system-ltng.css" />
+
+    <aura:attribute required="false" name="todoList" description="Todos" access="public" type="Todo__c[]" />
+    <aura:registerEvent name="dispatchAction" type="c:dispatchAction"/>
+    <aura:handler event="c:storeInitialized" action="{!c.storeInitialized}"/>
+    <aura:handler name="change" value="{!v.todoList}" action="{!c.handleTodoListChange}"/>
+    <aura:handler event="c:reduxStoreChange" action="{!c.handleStoreChange}"/>
+
+    <!--Build our iteration of todoItem components-->
+    <ul class="slds-has-dividers--top-space">
+        <aura:iteration items="{!v.todoList}" var="todo">
+            <li class="slds-item">
+                <c:todoItem todo="{!todo}"/>
+            </li>
+        </aura:iteration>
+    </ul>
+
+    <!--For Styling purposes adds: a final divider-->
+    <ul class="slds-has-dividers--top">
+        <li class="slds-item">
+        </li>
+    </ul>
+
+    <!--Buttons-->
+    <div class="slds-button-group" role="group">
+        <button class="slds-button slds-button--neutral" onclick="{!c.completeAll}">
+            Complete All
+        </button>
+        <button class="slds-button slds-button--neutral" onclick="{!c.removeCompleted}">
+            Remove Completed
+        </button>
+    </div>
+
+</aura:component>
