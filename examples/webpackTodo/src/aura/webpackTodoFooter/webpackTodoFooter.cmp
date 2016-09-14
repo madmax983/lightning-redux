@@ -1,0 +1,16 @@
+<aura:component description="webpackTodoFooter" controller="TodoController">
+
+    <aura:attribute required="false" name="todoList" description="Todos" access="public" type="Todo__c[]" />
+    <aura:handler event="c:reduxStoreChange" action="{!c.handleStoreChange}"/>
+
+    <!--Buttons-->
+    <div class="slds-button-group" role="group">
+        <button class="slds-button slds-button--neutral" onclick="{!c.completeAll}">
+            Complete All
+        </button>
+        <button class="slds-button slds-button--neutral" onclick="{!c.removeCompleted}">
+            Remove Completed
+        </button>
+    </div>
+
+</aura:component>

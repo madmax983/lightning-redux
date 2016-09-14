@@ -30,7 +30,7 @@
             });
 
             action.setCallback(this, function(response){
-                switch(response.getState(response)){
+                switch(response.getState()){
                     case "SUCCESS":
                         console.log("SUCCESS - ADD TODO");
                         var dispatchAction = $A.get("e.c:dispatchAction");

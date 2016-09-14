@@ -6,7 +6,6 @@
         reduxStoreChange.setParams({"store" : store});
         reduxStoreChange.fire();
         function handleChanges() {
-            store = component.get("v.store");
             console.log('Provider - handleChanges');
             console.log(store.getState());
             var reduxStoreChange = $A.get("e.c:reduxStoreChange");

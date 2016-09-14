@@ -5,7 +5,6 @@
     <aura:attribute required="false" name="todoList" description="Todos" access="public" type="Todo__c[]" />
     <aura:registerEvent name="dispatchAction" type="c:dispatchAction"/>
     <aura:handler event="c:storeInitialized" action="{!c.storeInitialized}"/>
-    <aura:handler name="change" value="{!v.todoList}" action="{!c.handleTodoListChange}"/>
     <aura:handler event="c:reduxStoreChange" action="{!c.handleStoreChange}"/>
 
     <!--Build our iteration of todoItem components-->

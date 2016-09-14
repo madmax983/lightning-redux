@@ -1,0 +1,9 @@
+<aura:component description="webpackVisibleTodoList" controller="TodoController">
+
+    <aura:attribute required="false" name="todoList" description="Todos" access="public" type="Todo__c[]" />
+    <aura:handler event="c:storeInitialized" action="{!c.storeInitialized}"/>
+    <aura:handler event="c:reduxStoreChange" action="{!c.handleStoreChange}"/>
+
+    <c:webpackTodoList todoList="{!v.todoList}"/>
+
+</aura:component>

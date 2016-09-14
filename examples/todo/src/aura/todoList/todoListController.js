@@ -115,12 +115,6 @@
         var store = event.getParam("store"),
             state = store.getState(),
             visibleTodos = getVisibileTodos(state.todos, state.visibilityFilter);
-        debugger;
         component.set("v.todoList", visibleTodos);
-    },
-
-    handleTodoListChange: function(component){
-        var todoList = component.get("v.todoList");
-        console.log(todoList);
     }
 })

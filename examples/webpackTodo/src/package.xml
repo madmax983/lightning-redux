@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>AddTodo</members>
+        <members>CompleteTodo</members>
+        <members>EditTodo</members>
+        <members>RemoveTodo</members>
+        <members>ShowActive</members>
+        <members>ShowAll</members>
+        <members>ShowCompleted</members>
+        <members>UpdateTodo</members>
+        <members>webpackFilter</members>
+        <members>webpackFilterContainer</members>
+        <members>webpackNewTodo</members>
+        <members>webpackNewTodoContainer</members>
+        <members>webpackTodoApp</members>
+        <members>webpackTodoFooter</members>
+        <members>webpackTodoItem</members>
+        <members>webpackTodoItemContainer</members>
+        <members>webpackTodoList</members>
+        <members>webpackVisibleTodoList</members>
+        <name>AuraDefinitionBundle</name>
+    </types>
+    <version>37.0</version>
+</Package>

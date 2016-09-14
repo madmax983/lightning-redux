@@ -1,0 +1,19 @@
+<aura:component description="webpackTodoApp">
+    <ltng:require scripts="{!$Resource.webpackTodo}"
+                  afterScriptsLoaded="{!c.afterScriptsLoaded}" />
+    <c:Provider aura:id="provider"/>
+
+    <div class="lightning-redux">
+        <div class="slds-page-header" role="banner">
+            <div class="slds-media slds-media--center">
+                <div class="slds-media__body">
+                    <p class="slds-page-header__title slds-truncate slds-align-middle" title="VidunderList">VidunderList</p>
+                </div>
+            </div>
+        </div>
+        <c:webpackFilter />
+        <c:webpackNewTodo />
+        <c:webpackVisibleTodoList aura:id="visibleTodos"/>
+        <c:webpackTodoFooter />
+    </div>
+</aura:component>
