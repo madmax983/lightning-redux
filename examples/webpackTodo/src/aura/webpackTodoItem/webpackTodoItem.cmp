@@ -5,11 +5,6 @@
     <aura:attribute required="false" name="todo" description="Todo" access="public" type="Todo__c" />
     <aura:attribute name="mode" type="String" default="view" />
 
-    <aura:registerEvent name="EditTodo" type="c:EditTodo" />
-    <aura:registerEvent name="UpdateTodo" type="c:UpdateTodo" />
-    <aura:registerEvent name="CompleteTodo" type="c:CompleteTodo" />
-    <aura:registerEvent name="RemoveTodo" type="c:RemoveTodo" />
-
     <!--Lightning Design System Tile-->
     <div class="slds-tile slds-media">
 

@@ -1,7 +1,6 @@
 module.exports = {
-    entry  : './src/index.js',
+    entry  : './examples/webpackTodo/webpackTodo/src/index.js',
     output : {
-        path     : '../src/staticresources/',
         filename : 'webpackTodo.resource',
         library : 'webpackTodo',
         libraryTarget: 'umd',

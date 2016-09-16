@@ -2,11 +2,7 @@
 
     <!--Import Lightning Design System-->
     <ltng:require styles="/resource/SLDS203/assets/styles/salesforce-lightning-design-system-ltng.css" />
-
-    <aura:registerEvent name="ShowAll" type="c:ShowAll" />
-    <aura:registerEvent name="ShowActive" type="c:ShowActive" />
-    <aura:registerEvent name="ShowCompleted" type="c:ShowCompleted" />
-
+    
     <div class="slds-button-group" role="group">
         <button class="slds-button slds-button--neutral" onclick="{!c.showAll}">
             Show All

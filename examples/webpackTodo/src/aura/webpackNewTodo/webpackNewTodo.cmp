@@ -6,7 +6,6 @@
                     access="public"
                     type="Todo__c"
                     default="{'sobjectType': 'Todo__c', 'Completed__c': 'false'}" />
-    <aura:registerEvent name="AddTodo" type="c:AddTodo"/>
     <div class="slds-grid">
         <div class="slds-col">
             <ui:inputText class="slds-input" aura:id="new-todo" value="{!v.newTodo.Text__c}" placeholder="Add New Todo" />

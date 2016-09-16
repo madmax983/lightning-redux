@@ -140,6 +140,7 @@ export function recieveTodos(component) {
             switch(response.getState(response)){
                 case "SUCCESS":
                     console.log("SUCCESS - GET TODOS");
+                    console.log(response.getReturnValue());
                      return dispatch({
                         type: 'RECIEVE_TODOS',
                         response: response.getReturnValue()

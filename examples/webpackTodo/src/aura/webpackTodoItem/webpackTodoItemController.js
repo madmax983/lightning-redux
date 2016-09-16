@@ -1,21 +1,17 @@
 ({
     edit: function(component){
-        var todoItem = component.find("webpackTodoItem");
-        todoItem.set("v.mode", "edit");
+        component.set("v.mode", "edit");
     },
 
     update: function(component){
-        var todoItem = component.find("webpackTodoItem");
-        webpackTodo.actions.editTodo(todoItem);
+        webpackTodo.actions.editTodo(component);
     },
 
     complete: function(component){
-        var todoItem = component.find("webpackTodoItem");
-        webpackTodo.actions.completeTodo(todoItem);
+        webpackTodo.actions.completeTodo(component);
     },
 
     remove: function(component){
-        var todoItem = component.find("webpackTodoItem");
-        webpackTodo.actions.deleteTodo(todoItem);
+        webpackTodo.actions.deleteTodo(component);
     }
 })

@@ -14,6 +14,7 @@
             switch(response.getState(response)){
                 case "SUCCESS":
                     console.log("SUCCESS - GET TODOS");
+                    console.log(response.getReturnValue());
                     var dispatchAction = $A.get("e.c:dispatchAction");
                     dispatchAction.setParams({"action" : recieveTodos(response.getReturnValue())});
                     dispatchAction.fire();
