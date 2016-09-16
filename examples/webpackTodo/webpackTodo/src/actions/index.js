@@ -26,7 +26,7 @@ export function addTodo(component) {
                         console.log("SUCCESS - ADD TODO");
                         return dispatch({
                             type: 'ADD_TODO',
-                            text: response.getReturnValue()
+                            todo: response.getReturnValue()
                         });
                     case "ERROR":
                         console.log("ERROR");

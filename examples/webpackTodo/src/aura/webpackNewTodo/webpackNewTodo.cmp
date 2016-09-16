@@ -1,4 +1,4 @@
-<aura:component description="webpackNewTodo">
+<aura:component description="webpackNewTodo" controller="TodoController">
     <ltng:require styles="/resource/SLDS203/assets/styles/salesforce-lightning-design-system-ltng.css" />
     <aura:attribute required="false"
                     name="newTodo"
