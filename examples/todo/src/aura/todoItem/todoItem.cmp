@@ -26,9 +26,9 @@
                         <aura:if isTrue="{!v.mode == 'view'}">
                             <!--set the onclick handler for phones, otherwise switch to inline on double click-->
                             <aura:if isTrue="{!$Browser.isPhone == true}">
-                                <label onclick="{!c.edit}">{!v.todo.Text__c}</label>
+                                <label style="{!v.todo.Completed__c ? 'text-decoration: line-through' : ''}" onclick="{!c.edit}">{!v.todo.Text__c}</label>
                                 <aura:set attribute="else">
-                                    <label ondblclick="{!c.edit}">{!v.todo.Text__c}</label>
+                                    <label style="{!v.todo.Completed__c ? 'text-decoration: line-through' : ''}" ondblclick="{!c.edit}">{!v.todo.Text__c}</label>
                                 </aura:set>
                             </aura:if>
                             <aura:set attribute="else">
