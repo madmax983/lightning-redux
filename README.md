@@ -4,6 +4,14 @@ Lightning bindings for Redux
 
 #Installation instructions:
 
+Simple Setup: Deploy the components to a Dev org.
+
+<a href="https://githubsfdeploy.herokuapp.com">
+    <img alt="Deploy to Salesforce" src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
+</a>
+
+Advanced Setup:
+
 1. Clone repo
 2. Copy jsforce.config.editme.json and create jsforce.config.json.
 3. Enter target Salesforce org credentials.
