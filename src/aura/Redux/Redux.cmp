@@ -1,0 +1,25 @@
+<aura:component description="Redux">
+    <ltng:require scripts="{!$Resource.redux37}"/>
+    <aura:attribute name="store" type="object" access="global" />
+    <aura:method name="createStore" action="{!c.createStore}">
+        <aura:attribute name="rootReducer" type="object" />
+        <aura:attribute name="initialState" type="object" />
+        <aura:attribute name="middleware" type="object" />
+    </aura:method>
+    <aura:method name="dispatch" action="{!c.dispatch}" >
+        <aura:attribute name="action" type="object" />
+    </aura:method>
+    <aura:method name="subscribe" action="{!c.subscribe}" >
+        <aura:attribute name="listener" type="object" />
+    </aura:method>
+    <aura:method name="replaceReducer" action="{!c.replaceReducer}" >
+        <aura:attribute name="nextReducer" type="object" />
+    </aura:method>
+    <aura:method name="registerReducer" action="{!c.registerReducer}" >
+        <aura:attribute name="name" type="string" />
+        <aura:attribute name="reducer" type="object" />
+    </aura:method>
+    <aura:method name="connect" action="{!c.connect}" >
+        <aura:attribute name="mapStateToAttributes" type="object" />
+    </aura:method>
+</aura:component>
