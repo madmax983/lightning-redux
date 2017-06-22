@@ -24,21 +24,21 @@
             var rootReducer = params.rootReducer;
             var initialState = params.initialState;
             var middleware = params.middleware;
+            window.reducerRegistry = Object.assign({}, rootReducer);
 
             if(window.reducerQueue) {
                 rootReducer = Redux.combineReducers(Object.assign({}, rootReducer, window.reducerQueue));
+            } else {
+                rootReducer = Redux.combineReducers(rootReducer);
             }
 
             if(!window.reduxStore) {
                 if (rootReducer && initialState && middleware) {
                     window.reduxStore = Redux.createStore(rootReducer, initialState, Redux.compose(Redux.applyMiddleware(middleware)));
-                    window.reducerRegistry = rootReducer;
                 } else if (rootReducer && initialState && !middleware) {
                     window.reduxStore = Redux.createStore(rootReducer, initialState);
-                    window.reducerRegistry = rootReducer;
                 } else if (rootReducer && !initialState && !middleware) {
                     window.reduxStore = Redux.createStore(rootReducer);
-                    window.reducerRegistry = rootReducer;
                 }
             }
 
