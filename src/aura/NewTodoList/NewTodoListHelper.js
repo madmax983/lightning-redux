@@ -43,7 +43,7 @@
         }
     },
 
-    removeCompletedTodos: function() {
+    removeCompletedTodos: function(component) {
         return function(dispatch){
 
             var action = component.get("c.removeCompletedTodos"),
