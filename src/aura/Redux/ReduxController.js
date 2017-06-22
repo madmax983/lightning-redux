@@ -29,18 +29,14 @@
                 rootReducer = Redux.combineReducers(Object.assign({}, rootReducer, window.reducerQueue));
             }
 
-            if(rootReducer && initialState && middleware) {
-                if(!window.reduxStore){
-                    window.reduxStore= Redux.createStore(rootReducer, initialState, Redux.compose(Redux.applyMiddleware(middleware)));
+            if(!window.reduxStore) {
+                if (rootReducer && initialState && middleware) {
+                    window.reduxStore = Redux.createStore(rootReducer, initialState, Redux.compose(Redux.applyMiddleware(middleware)));
                     window.reducerRegistry = rootReducer;
-                }
-            } else if(rootReducer && initialState && !middleware) {
-                if(!window.reduxStore){
+                } else if (rootReducer && initialState && !middleware) {
                     window.reduxStore = Redux.createStore(rootReducer, initialState);
                     window.reducerRegistry = rootReducer;
-                }
-            } else if(rootReducer && !initialState && !middleware) {
-                if(!window.reduxStore){
+                } else if (rootReducer && !initialState && !middleware) {
                     window.reduxStore = Redux.createStore(rootReducer);
                     window.reducerRegistry = rootReducer;
                 }
