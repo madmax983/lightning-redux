@@ -2,17 +2,11 @@
     counterReducer: function(state, action) {
         switch (action.type) {
             case 'INCREMENT':
-                return {
-                    counter: state.counter + 1
-                }
+                return state + 1;
             case 'DECREMENT':
-                return {
-                    counter: state.counter - 1
-                }
+                return state - 1;
             default:
-                var defaultState = {
-                    counter: 0
-                };
+                var defaultState = 0;
                 return defaultState;
         }
     }

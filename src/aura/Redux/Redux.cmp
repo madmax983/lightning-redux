@@ -1,6 +1,7 @@
 <aura:component description="Redux">
     <ltng:require scripts="{!$Resource.redux37}"/>
     <aura:attribute name="store" type="object" access="global" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:method name="createStore" action="{!c.createStore}">
         <aura:attribute name="rootReducer" type="object" />
         <aura:attribute name="initialState" type="object" />
@@ -21,5 +22,6 @@
     </aura:method>
     <aura:method name="connect" action="{!c.connect}" >
         <aura:attribute name="mapStateToAttributes" type="object" />
+        <aura:attribute name="target" type="Aura.Component" />
     </aura:method>
 </aura:component>

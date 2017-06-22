@@ -4,7 +4,7 @@
         store.createStore(helper.counterReducer);
 
         var mapStateToAttributes = {
-            "v.counter": "counter"
+            "v.counter": ""
         }
         store.connect(mapStateToAttributes);
     },

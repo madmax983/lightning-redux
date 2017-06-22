@@ -1,0 +1,10 @@
+<aura:component description="NewTodoApp">
+    <ltng:require scripts="{!join(',',
+                            $Resource.redux37,
+                            $Resource.reduxThunk)}"
+                  afterScriptsLoaded="{!c.doInit}"/>
+    <c:Redux aura:id="store" />
+    <c:NewVisibilityFilter />
+    <c:BrandNewTodo />
+    <c:NewTodoList />
+</aura:component>
