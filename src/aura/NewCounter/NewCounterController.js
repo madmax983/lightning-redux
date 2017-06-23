@@ -1,10 +1,10 @@
 ({
     doInit: function(component, event, helper) {
         var store = component.find("store");
-        store.createStore(helper.counterReducer);
+        store.createStore("counter", helper.counterReducer);
 
         var mapStateToAttributes = {
-            "v.counter": ""
+            "v.counter": "counter"
         }
         store.connect(mapStateToAttributes);
     },

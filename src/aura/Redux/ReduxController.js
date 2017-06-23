@@ -1,45 +1,41 @@
 ({
-    doInit: function(component, event) {
-        function updateStoreTarget(){
-            component.set("v.store", window.reduxStore);
-        }
-
-        if(window.reduxStore) {
-            window.reduxStore.subscribe(updateStoreTarget);
-        } else {
-            if(window.reduxComponentRegistry) {
-                window.reduxComponentRegistry.push(component);
-            } else {
-                window.reduxComponentRegistry = [component];
-            }
-
-        }
-    },
-
     createStore: function(component, event) {
         var params = event.getParam("arguments");
 
         if(params && Redux) {
 
+            var reducerName = params.name;
             var rootReducer = params.rootReducer;
             var initialState = params.initialState;
             var middleware = params.middleware;
-            window.reducerRegistry = Object.assign({}, rootReducer);
+            var combinedReducer;
 
             if(window.reducerQueue) {
-                rootReducer = Redux.combineReducers(Object.assign({}, rootReducer, window.reducerQueue));
+                combinedReducer = Redux.combineReducers(Object.assign({}, rootReducer, window.reducerQueue));
+                window.reducerRegistry = Object.assign({}, window.reducerRegistry, rootReducer);
             } else {
-                rootReducer = Redux.combineReducers(rootReducer);
+                if(typeof rootReducer === 'function') {
+                    var reducerObject = {};
+                    reducerObject[reducerName] = rootReducer;
+                    combinedReducer = Redux.combineReducers(reducerObject);
+                    window.reducerRegistry = Object.assign({}, window.reducerRegistry, reducerObject);
+                } else {
+                    combinedReducer = Redux.combineReducers(rootReducer);
+                    window.reducerRegistry = Object.assign({}, window.reducerRegistry, rootReducer);
+                }
             }
+
 
             if(!window.reduxStore) {
                 if (rootReducer && initialState && middleware) {
-                    window.reduxStore = Redux.createStore(rootReducer, initialState, Redux.compose(Redux.applyMiddleware(middleware)));
+                    window.reduxStore = Redux.createStore(combinedReducer, initialState, Redux.compose(Redux.applyMiddleware(middleware)));
                 } else if (rootReducer && initialState && !middleware) {
-                    window.reduxStore = Redux.createStore(rootReducer, initialState);
+                    window.reduxStore = Redux.createStore(combinedReducer, initialState);
                 } else if (rootReducer && !initialState && !middleware) {
-                    window.reduxStore = Redux.createStore(rootReducer);
+                    window.reduxStore = Redux.createStore(combinedReducer);
                 }
+            } else {
+                component.registerReducer(reducerName, rootReducer)
             }
 
             if(window.subscriberQueue) {
@@ -53,15 +49,6 @@
                    component.dispatch(action);
                 });
             }
-
-            if(window.reduxComponentRegistry) {
-                window.reduxComponentRegistry.map(function(cmp) {
-                    window.reduxStore.subscribe(function() {
-                        cmp.set("v.store", window.reduxStore);
-                    });
-                });
-            }
-
         }
     },
 
@@ -111,6 +98,7 @@
 
             if(window.reduxStore) {
                 var newRootReducer = Redux.combineReducers(Object.assign({}, window.reducerRegistry, reducerObject));
+                window.reducerRegistry = Object.assign({}, window.reducerRegistry, reducerObject);
                 window.reduxStore.replaceReducer(newRootReducer);
             } else {
                 if(window.reducerQueue){
@@ -134,9 +122,7 @@
 
                 for(var key in mapStateToAttributes) {
                     if(mapStateToAttributes.hasOwnProperty(key)) {
-                        if(mapStateToAttributes[key] === "") {
-                            target.set(key, state);
-                        } else if(typeof mapStateToAttributes[key] === "function") {
+                        if(typeof mapStateToAttributes[key] === "function") {
                             target.set(key, mapStateToAttributes[key](state))
                         } else {
                             target.set(key, state[mapStateToAttributes[key]]);
