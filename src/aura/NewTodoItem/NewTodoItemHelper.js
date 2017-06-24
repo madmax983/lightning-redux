@@ -85,5 +85,17 @@
 
             $A.enqueueAction(action);
         }
+    },
+
+    getTodoStatus: function(component, state) {
+        var status = component.get("v.completed");
+        var currentTodo = component.get("v.todo");
+        state.todos.map(function(todo) {
+             if(currentTodo.Id === todo.Id) {
+                 status = todo.Completed__c;
+             }
+        });
+
+        return status;
     }
 })

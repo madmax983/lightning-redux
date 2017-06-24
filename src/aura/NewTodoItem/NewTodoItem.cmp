@@ -1,7 +1,9 @@
 <aura:component description="NewTodoItem" controller="TodoController">
-    <ltng:require scripts="{!$Resource.redux37}"/>
+    <ltng:require scripts="{!$Resource.redux37}"
+                  afterScriptsLoaded="{!c.doInit}"/>
     <aura:attribute required="false" name="todo" description="Todo" access="public" type="Todo__c" />
     <aura:attribute name="mode" type="String" default="view" />
+    <aura:attribute name="completed" type="Boolean" />
 
     <c:Redux aura:id="store" />
 
@@ -11,7 +13,7 @@
         <!--Checkbox for completing Todos-->
         <div class="slds-media__figure">
             <label class="slds-checkbox">
-                <input id="{!'completed_' + v.todo.id}" type="checkbox" checked="{!v.todo.Completed__c ? 'checked' : ''}" onchange="{!c.complete}" />
+                <input id="{!'completed_' + v.todo.id}" type="checkbox" checked="{!v.completed ? 'checked' : ''}" onchange="{!c.complete}" />
                 <span class="slds-checkbox--faux"></span>
                 <span class="slds-form-element__label slds-assistive-text">Did you complete this todo?</span>
             </label>
@@ -28,7 +30,7 @@
                             <aura:if isTrue="{!$Browser.isPhone == true}">
                                 <label style="{!v.todo.Completed__c ? 'text-decoration: line-through' : ''}" onclick="{!c.edit}">{!v.todo.Text__c}</label>
                                 <aura:set attribute="else">
-                                    <label style="{!v.todo.Completed__c ? 'text-decoration: line-through' : ''}" ondblclick="{!c.edit}">{!v.todo.Text__c}</label>
+                                    <label style="{!v.completed ? 'text-decoration: line-through' : ''}" ondblclick="{!c.edit}">{!v.todo.Text__c}</label>
                                 </aura:set>
                             </aura:if>
                             <aura:set attribute="else">

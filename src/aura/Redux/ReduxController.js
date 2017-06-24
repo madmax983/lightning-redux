@@ -123,7 +123,7 @@
                 for(var key in mapStateToAttributes) {
                     if(mapStateToAttributes.hasOwnProperty(key)) {
                         if(typeof mapStateToAttributes[key] === "function") {
-                            target.set(key, mapStateToAttributes[key](state))
+                            target.set(key, mapStateToAttributes[key](target, state))
                         } else {
                             target.set(key, state[mapStateToAttributes[key]]);
                         }
@@ -134,6 +134,7 @@
             handleChanges();
 
             window.reduxStore.subscribe(handleChanges);
+            target.dispatch = window.reduxStore.dispatch;
         } else {
             if(window.subscriberQueue) {
                 window.subscriberQueue.push({
