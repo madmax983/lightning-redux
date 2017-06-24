@@ -1,3 +1,0 @@
-<aura:event type="APPLICATION" description="storeInitialized">
-    <aura:attribute name="store" type="Object" />
-</aura:event>

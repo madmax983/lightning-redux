@@ -1,3 +1,0 @@
-<aura:event type="APPLICATION" description="dispatchAction">
-    <aura:attribute name="action" type="Object"/>
-</aura:event>

@@ -1,0 +1,19 @@
+<aura:component description="NewTodoList" >
+    <aura:attribute required="false" name="todoList" description="Todos" access="public" type="Todo__c[]" />
+
+    <!--Build our iteration of todoItem components-->
+    <ul class="slds-has-dividers--top-space">
+        <aura:iteration items="{!v.todoList}" var="todo">
+            <li class="slds-item">
+                <c:NewTodoItem todo="{#todo}"/>
+            </li>
+        </aura:iteration>
+    </ul>
+
+    <!--For Styling purposes adds: a final divider-->
+    <ul class="slds-has-dividers--top">
+        <li class="slds-item">
+        </li>
+    </ul>
+
+</aura:component>
