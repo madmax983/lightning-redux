@@ -10,19 +10,15 @@
             var middleware = params.middleware;
             var combinedReducer;
 
+            var reducerObject = {};
+            reducerObject[reducerName] = rootReducer;
+
             if(window.reducerQueue) {
-                combinedReducer = Redux.combineReducers(Object.assign({}, rootReducer, window.reducerQueue));
-                window.reducerRegistry = Object.assign({}, window.reducerRegistry, rootReducer);
+                combinedReducer = Redux.combineReducers(Object.assign({}, reducerObject, window.reducerQueue));
+                window.reducerRegistry = Object.assign({}, window.reducerRegistry, reducerObject, window.reducerQueue);
             } else {
-                if(typeof rootReducer === 'function') {
-                    var reducerObject = {};
-                    reducerObject[reducerName] = rootReducer;
-                    combinedReducer = Redux.combineReducers(reducerObject);
-                    window.reducerRegistry = Object.assign({}, window.reducerRegistry, reducerObject);
-                } else {
-                    combinedReducer = Redux.combineReducers(rootReducer);
-                    window.reducerRegistry = Object.assign({}, window.reducerRegistry, rootReducer);
-                }
+                combinedReducer = Redux.combineReducers(reducerObject);
+                window.reducerRegistry = Object.assign({}, window.reducerRegistry, reducerObject);
             }
 
 
