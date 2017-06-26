@@ -13,4 +13,3 @@ jsforce.config.json
 
 #sfdx
 .sfdx/*
-/config/workspace-scratch-def.json

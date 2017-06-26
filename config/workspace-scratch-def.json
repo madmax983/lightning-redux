@@ -1,0 +1,10 @@
+{
+  "country": "US",
+  "edition": "Developer",
+  "orgPreferences": {
+    "enabled": [
+      "S1DesktopEnabled"
+    ],
+  },
+  "orgName": "markmasterson Company",
+}
