@@ -1,3 +1,0 @@
-<aura:component >
-    <div id="content">Hello World!</div>
-</aura:component>

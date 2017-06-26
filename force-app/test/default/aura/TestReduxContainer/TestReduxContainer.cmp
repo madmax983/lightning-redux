@@ -1,0 +1,4 @@
+<aura:component description="TestReduxContainer">
+    <aura:attribute name="message" type="string" />
+    <c:Redux aura:id="store"/>
+</aura:component>

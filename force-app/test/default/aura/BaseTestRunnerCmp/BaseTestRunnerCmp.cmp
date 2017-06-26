@@ -16,6 +16,8 @@
         $Resource.jasmineReporter,
         $Resource.jasmineboot,
         $Resource.testutil,
+        $Resource.redux,
+        $Resource.reduxThunk,
         v.testspecs
     )}"
         styles="{!join(',', 

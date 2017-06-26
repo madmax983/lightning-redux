@@ -1,9 +1,7 @@
 <aura:application extends="force:slds" description="Sample wrapper test app">
 
-    <c:BaseTestRunnerCmp testspecs="{!join(',', 
-    	$Resource.helloWorldTests,
-		$Resource.exampleTests,
-		$Resource.lightningDataServiceTests
+    <c:BaseTestRunnerCmp testspecs="{!join(',',
+			$Resource.reduxTests
     )}" />
 
     <!--  placeholder div which example test specs use to render components under test -->

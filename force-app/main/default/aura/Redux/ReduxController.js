@@ -1,4 +1,16 @@
 ({
+    doInit: function(component) {
+        function getState() {
+            if(window.reduxStore) {
+                return window.reduxStore.getState();
+            } else {
+                return null;
+            }
+        }
+
+        component.getState = getState;
+    },
+
     createStore: function(component, event) {
         var params = event.getParam("arguments");
 

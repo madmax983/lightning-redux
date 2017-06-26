@@ -1,7 +1,0 @@
-<aura:component >
-    <aura:registerEvent name="sampleEvent" type="c:egComponentEvent" />
-    <aura:attribute name="message" type="string" />
-    <aura:handler event="c:egApplicationEvent" action="{!c.handleEvent}" />
-    <aura:handler name="sampleEvent" action="{!c.handleEvent}" />
-    {! v.message}
-</aura:component>

@@ -1,5 +1,6 @@
 <aura:component description="Redux">
     <ltng:require scripts="{!$Resource.redux}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:method name="createStore" action="{!c.createStore}">
         <aura:attribute name="name" type="string" />
         <aura:attribute name="rootReducer" type="object" />
