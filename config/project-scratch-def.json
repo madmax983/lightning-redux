@@ -1,10 +1,7 @@
 {
-  "country": "US",
+  "orgName": "mark.masterson Example",
   "edition": "Developer",
-  "orgPreferences": {
-    "enabled": [
-      "S1DesktopEnabled"
-    ],
-  },
-  "orgName": "markmasterson Company",
+  "orgPreferences" : {
+    "enabled": ["S1DesktopEnabled"]
+  }
 }
