@@ -5,7 +5,7 @@ The new version of Lightning-Redux simplifies the previous iteration down to a s
 
 ### Component Methods
 ####
-##### createStore(name, reducer, initialState, middleware): create the Redux store.
+**createStore(name, reducer, initialState, middleware):** create the Redux store.
 
 name: The name of the slice of state for the reducer creating the store.
 
@@ -15,17 +15,17 @@ initialState: You can specify an initial shape to your store's shape.
 
 middleware: You can include redux middleware like redux-thunk here. Lightning-Redux automatically wraps this with Redux compose.
 
-##### dispatch(action): Works like you would expect. Dispatches the action to the Redux store. Fun fact: connect also sets a dispatch expando on the connected component for convenience.
+**dispatch(action):** Works like you would expect. Dispatches the action to the Redux store. Fun fact: connect also sets a dispatch expando on the connected component for convenience.
 
-##### subscribe(listener): This shouldn't be needed to be implemented, but is provided in case you want to write a custom connect method. The listener callback will be called on store updates.
+**subscribe(listener):** This shouldn't be needed to be implemented, but is provided in case you want to write a custom connect method. The listener callback will be called on store updates.
 
-##### replaceReducer(nextReducer): Wraps Redux's replaceReducer function. Replaces the reducer function in the redux store.
+**replaceReducer(nextReducer):** Wraps Redux's replaceReducer function. Replaces the reducer function in the redux store.
 
-##### registerReducer(name, reducer): Adds the specified reducer function to the redux store with the specificed name as it's slice of state.
+**registerReducer(name, reducer):** Adds the specified reducer function to the redux store with the specificed name as it's slice of state.
 
-##### connect(mapStateToAttributes, target): mapStateToAttributes is a key pair object where the key is the attribute on the component you want set, and the value is either the value in the redux state graph, or a callback function. This function receives the component and state to compute the value. You can pass the component you want connected, but if it isn't populated, it will get populated by event.getSource(). It also sets a dispatch expando for convenience in the component's controller methods. 
+**connect(mapStateToAttributes, target):** mapStateToAttributes is a key pair object where the key is the attribute on the component you want set, and the value is either the value in the redux state graph, or a callback function. This function receives the component and state to compute the value. You can pass the component you want connected, but if it isn't populated, it will get populated by event.getSource(). It also sets a dispatch expando for convenience in the component's controller methods. 
 
-##### getState: Technically not a component method, this is a convenience expando that allows access to the Redux state.
+**getState():** Technically not a component method, this is a convenience expando that allows access to the Redux state.
 
 ## Installation
 Lightning-Redux Unmanaged Packaged (Redux Component, redux and redux-thunk static resource): https://login.salesforce.com/packaging/installPackage.apexp?p0=04t50000000M7PT
