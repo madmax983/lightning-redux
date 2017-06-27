@@ -1,4 +1,4 @@
-# Lightning-Redux
+# Lightning-Redux [![Build Status](https://travis-ci.org/madmax983/lightning-redux.svg?branch=master)](https://travis-ci.org/madmax983/lightning-redux)
 
 ## Usage
 The new version of Lightning-Redux simplifies the previous iteration down to a single Redux component. It serves as a wrapper around Redux itself, along with a few helper methods specific to Lightning.
