@@ -18,5 +18,5 @@ before_install:
 script:
 - sfdx force:org:create -v HubOrg -s -f config/project-scratch-def.json -a ciorg
 - sfdx force:source:push -u ciorg
-- sfdx force:lightning:test:run -u ciorg -c -r human
+- sfdx force:lightning:test:run -u ciorg
 - sfdx force:org:delete -u ciorg -p
