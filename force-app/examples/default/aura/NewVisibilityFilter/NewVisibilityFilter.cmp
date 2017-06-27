@@ -1,0 +1,10 @@
+<aura:component description="NewVisibilityFilter">
+    <ltng:require scripts="{!$Resource.redux}"
+                  afterScriptsLoaded="{!c.doInit}"/>
+    <c:Redux aura:id="store" />
+    <lightning:buttonGroup >
+        <lightning:button label="Show All" onclick="{!c.showAll}" />
+        <lightning:button label="Show Active" onclick="{!c.showActive}"/>
+        <lightning:button label="Show Completed" onclick="{!c.showCompleted}"/>
+    </lightning:buttonGroup>
+</aura:component>

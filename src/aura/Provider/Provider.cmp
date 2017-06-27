@@ -1,7 +1,0 @@
-<aura:component description="Provider" extensible="true" >
-    <aura:attribute required="false" name="store" description="Redux Store" access="public" type="Object" />
-    <aura:registerEvent name="reduxStoreChange" type="c:reduxStoreChange"/>
-    <aura:handler event="c:storeInitialized" action="{!c.storeInitialized}"/>
-    <aura:handler event="c:dispatchAction" action="{!c.handleDispatch}"/>
-    {!v.body}
-</aura:component>

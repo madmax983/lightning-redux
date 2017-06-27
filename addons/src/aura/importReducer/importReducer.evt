@@ -1,4 +1,0 @@
-<aura:event type="APPLICATION" description="importReducer">
-    <aura:attribute name="name" type="String"/>
-    <aura:attribute name="reducer" type="Object"/>
-</aura:event>

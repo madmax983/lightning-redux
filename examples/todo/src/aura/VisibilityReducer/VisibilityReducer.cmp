@@ -1,3 +1,0 @@
-<aura:component description="VisibilityReducer" extends="c:reducer">
-    <aura:set attribute="name" value="visibilityFilter"/>
-</aura:component>

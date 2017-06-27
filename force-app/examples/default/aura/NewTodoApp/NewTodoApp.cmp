@@ -1,0 +1,7 @@
+<aura:component description="NewTodoApp" >
+    <c:NewVisibilityFilter />
+    <c:BrandNewTodo />
+    <c:NewTodoToolbar />
+    <c:NewTodoList />
+    <c:NewTodoToolbar />
+</aura:component>

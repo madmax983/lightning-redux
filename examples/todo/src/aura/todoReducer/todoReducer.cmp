@@ -1,3 +1,0 @@
-<aura:component description="todoReducer" extends="c:reducer">
-    <aura:set attribute="name" value="todos"/>
-</aura:component>
