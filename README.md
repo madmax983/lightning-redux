@@ -30,7 +30,7 @@ middleware: You can include redux middleware like redux-thunk here. Lightning-Re
 ## Installation
 Lightning-Redux Unmanaged Packaged (Redux Component, redux and redux-thunk static resource): https://login.salesforce.com/packaging/installPackage.apexp?p0=04t50000000M7PT
 
-Lightning-Redux-Examples (Counter and Todo Examples unmanaged package): https://login.salesforce.com/packaging/installPackage.apexp?p0=04t50000000M7Pi
+Lightning-Redux-Examples (Counter and Todo Examples unmanaged package): https://login.salesforce.com/packaging/installPackage.apexp?p0=04t50000000M7Pn
 
 Otherwise, you can use the SFDX CLI to convert the source and do a metadata deploy.
 
