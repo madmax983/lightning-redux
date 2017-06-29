@@ -87,15 +87,23 @@
         }
     },
 
-    getTodoStatus: function(component, state) {
+    statusSelector: function(state, component) {
         var status = component.get("v.completed");
         var currentTodo = component.get("v.todo");
+        var selectedTodo = {};
         state.todos.map(function(todo) {
-             if(currentTodo && currentTodo.Id && currentTodo.Id === todo.Id) {
-                 status = todo.Completed__c;
-             }
+            if(currentTodo && currentTodo.Id && currentTodo.Id === todo.Id) {
+                status = todo.Completed__c;
+            }
         });
+        return status;
+    },
 
+    componentSelector: function(state, component) {
+        return component;
+    },
+
+    getTodoStatus: function(status) {
         return status;
     }
 })

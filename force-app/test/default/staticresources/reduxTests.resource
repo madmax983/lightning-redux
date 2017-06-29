@@ -184,7 +184,7 @@ describe("Redux Tests", function() {
 
                     redux.createStore("helloWorld", helloWorldReducer);
 
-                    function reverseState(component, state) {
+                    function reverseState(state, component) {
                         return state.helloWorld.split("").reverse().join("");
                     }
                     var mapStateToAttributes = {

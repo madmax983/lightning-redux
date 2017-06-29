@@ -131,7 +131,7 @@
                 for(var key in mapStateToAttributes) {
                     if(mapStateToAttributes.hasOwnProperty(key)) {
                         if(typeof mapStateToAttributes[key] === "function") {
-                            target.set(key, mapStateToAttributes[key](target, state))
+                            target.set(key, mapStateToAttributes[key](state, target))
                         } else {
                             target.set(key, state[mapStateToAttributes[key]]);
                         }

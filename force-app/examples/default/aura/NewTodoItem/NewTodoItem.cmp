@@ -1,5 +1,7 @@
 <aura:component description="NewTodoItem" controller="TodoController">
-    <ltng:require scripts="{!$Resource.redux}"
+    <ltng:require scripts="{!join(',',
+            $Resource.redux,
+            $Resource.reselect)}"
                   afterScriptsLoaded="{!c.doInit}"/>
     <aura:attribute required="false" name="todo" description="Todo" access="public" type="Todo__c" />
     <aura:attribute name="mode" type="String" default="view" />

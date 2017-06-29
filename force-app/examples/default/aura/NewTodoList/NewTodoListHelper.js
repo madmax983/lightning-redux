@@ -68,16 +68,24 @@
         }
     },
 
-    getVisibileTodos: function(component, state) {
-        switch(state.visibilityFilter){
+    todoSelector: function(state, component) {
+        return state.todos;
+    },
+
+    visibilitySelector: function(state, component) {
+        return state.visibilityFilter;
+    },
+
+    getVisibileTodos: function(todos, visibilityFilter) {
+        switch(visibilityFilter){
             case "SHOW_ALL":
-                return state.todos;
+                return todos;
             case "SHOW_ACTIVE":
-                return state.todos.filter(function(todo){
+                return todos.filter(function(todo){
                     return !todo.Completed__c
                 });
             case "SHOW_COMPLETED":
-                return state.todos.filter(function(todo){
+                return todos.filter(function(todo){
                     return todo.Completed__c
                 });
         }
