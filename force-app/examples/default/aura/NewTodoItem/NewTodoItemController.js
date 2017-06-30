@@ -4,15 +4,28 @@
         var store = component.find("store");
 
         var getTodoStatus = Reselect.createSelector([
-                helper.statusSelector,
-                helper.componentSelector
-            ],
-            helper.getTodoStatus
-        )
+                    helper.todoSelector,
+                    helper.componentSelector
+                ],
+                helper.getTodoStatus
+        );
 
-        var mapStateToAttributes = {
-            "v.completed": getTodoStatus
+        var getTodoStatusFactory = function() {
+            return Reselect.createSelector([
+                    helper.todoSelector,
+                    helper.componentSelector
+                ],
+                helper.getTodoStatus
+            );
         }
+
+        var mapStateToAttributes = function(state, component) {
+            var getTodoStatus = getTodoStatusFactory();
+            return {
+                "v.completed": getTodoStatus
+            }
+        }
+
         store.connect(mapStateToAttributes);
     },
     edit: function(component) {

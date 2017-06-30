@@ -123,17 +123,27 @@
         var mapStateToAttributes = params ? params.mapStateToAttributes : null;
         var target = params && params.target ? params.target : event.getSource();
 
+        if(typeof mapStateToAttributes === "function") {
+            mapStateToAttributes = mapStateToAttributes();
+        }
+
         if(window.reduxStore) {
             function handleChanges(){
+                if(target.isValid()) {
+                    var state = window.reduxStore.getState();
 
-                var state = window.reduxStore.getState();
-
-                for(var key in mapStateToAttributes) {
-                    if(mapStateToAttributes.hasOwnProperty(key)) {
-                        if(typeof mapStateToAttributes[key] === "function") {
-                            target.set(key, mapStateToAttributes[key](state, target))
-                        } else {
-                            target.set(key, state[mapStateToAttributes[key]]);
+                    for(var key in mapStateToAttributes) {
+                        if(mapStateToAttributes.hasOwnProperty(key)) {
+                            if(typeof mapStateToAttributes[key] === "function") {
+                                try {
+                                    var returnedFunction = mapStateToAttributes[key]();
+                                    target.set(key, returnedFunction(state, target));
+                                } catch(e) {
+                                    target.set(key, mapStateToAttributes[key](state, target))
+                                }
+                            } else {
+                                target.set(key, state[mapStateToAttributes[key]]);
+                            }
                         }
                     }
                 }

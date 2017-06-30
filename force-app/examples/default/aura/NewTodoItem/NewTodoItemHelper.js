@@ -87,23 +87,24 @@
         }
     },
 
-    statusSelector: function(state, component) {
-        var status = component.get("v.completed");
-        var currentTodo = component.get("v.todo");
-        var selectedTodo = {};
-        state.todos.map(function(todo) {
-            if(currentTodo && currentTodo.Id && currentTodo.Id === todo.Id) {
-                status = todo.Completed__c;
-            }
-        });
-        return status;
+    todoSelector: function(state) {
+        return state.todos;
     },
 
     componentSelector: function(state, component) {
-        return component;
+        if(component.isInstanceOf("c:NewTodoItem")) {
+            return component;
+        }
     },
 
-    getTodoStatus: function(status) {
+    getTodoStatus: function(todos, component) {
+        var status = component.get("v.completed");
+        var currentTodo = component.get("v.todo");
+        todos.map(function(todo) {
+            if(currentTodo.Id === todo.Id) {
+                status = todo.Completed__c;
+            }
+        });
         return status;
     }
 })
