@@ -3,13 +3,6 @@
         component.set('v.completed', component.get("v.todo.Completed__c"));
         var store = component.find("store");
 
-        var getTodoStatus = Reselect.createSelector([
-                    helper.todoSelector,
-                    helper.componentSelector
-                ],
-                helper.getTodoStatus
-        );
-
         var getTodoStatusFactory = function() {
             return Reselect.createSelector([
                     helper.todoSelector,
