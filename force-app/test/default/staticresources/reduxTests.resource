@@ -313,4 +313,122 @@ describe("Redux Tests", function() {
             });
         });
     });
+
+    describe('Test Library Compatibility', function() {
+        it('is compatible with Redux Thunk', function(done) {
+            var renderInto = document.getElementById("renderTestComponents");
+            $T.createComponent("c:Redux", {}, renderInto)
+                .then(function(component) {
+                    function counterReducer(state, action) {
+                        switch (action.type) {
+                            case 'INCREMENT':
+                                return state + 1;
+                            case 'DECREMENT':
+                                return state - 1;
+                            default:
+                                var defaultState = 0;
+                                return defaultState;
+                        }
+                    }
+
+                    function incrementThunk() {
+                        return function(dispatch) {
+                            return dispatch({
+                                type: "INCREMENT"
+                            });
+                        }
+                    }
+
+                    function decrementThunk() {
+                        return function(dispatch) {
+                            return dispatch({
+                                type: "DECREMENT"
+                            });
+                        }
+                    }
+
+                    component.createStore("counter", counterReducer, {}, ReduxThunk.default);
+                    component.dispatch(incrementThunk());
+                    expect(component.getState().counter).toBe(1);
+                    component.dispatch(decrementThunk());
+                    expect(component.getState().counter).toBe(0);
+                    done();
+                }).catch(function(e) {
+                done.fail(e);
+            });
+        });
+        it('is compatible with Reselect', function(done) {
+            var renderInto = document.getElementById("renderTestComponents");
+            $T.createComponent("c:TestReduxContainer", {}, renderInto)
+                .then(function(component) {
+
+                    var redux = component.find("store");
+
+                    function helloWorldReducer(state, action) {
+                        switch(action.type) {
+                            case "JOHN":
+                                return "Hello John";
+                            default:
+                                return "Hello World";
+                        }
+                    }
+
+                    function counterReducer(state, action) {
+                        switch (action.type) {
+                            case 'INCREMENT':
+                                return state + 1;
+                            case 'DECREMENT':
+                                return state - 1;
+                            default:
+                                var defaultState = 0;
+                                return defaultState;
+                        }
+                    }
+
+                    redux.createStore("helloWorld", helloWorldReducer);
+                    redux.registerReducer("counter", counterReducer);
+
+                    var computeStateCalledCounter = 0;
+
+
+
+                    var helloWorldSelector = function(state, component) {
+                        return state.helloWorld;
+                    }
+
+                    function reverseState(helloWorld) {
+                        computeStateCalledCounter++;
+                        return helloWorld.split("").reverse().join("");
+                    }
+
+                    var getReverseState = Reselect.createSelector(
+                        helloWorldSelector, reverseState
+                    )
+
+                    var mapStateToAttributes = {
+                        "v.message": getReverseState
+                    };
+
+                    redux.connect(mapStateToAttributes, component);
+
+                    expect(computeStateCalledCounter).toBe(1);
+
+                    component.dispatch({
+                        type: "INCREMENT"
+                    });
+
+                    expect(computeStateCalledCounter).toBe(1);
+
+                    component.dispatch({
+                        type: "JOHN"
+                    });
+
+                    expect(computeStateCalledCounter).toBe(2);
+
+                    done();
+                }).catch(function(e) {
+                done.fail(e);
+            });
+        });
+    });
 });

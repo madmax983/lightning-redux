@@ -18,6 +18,7 @@
         $Resource.testutil,
         $Resource.redux,
         $Resource.reduxThunk,
+        $Resource.reselect,
         v.testspecs
     )}"
         styles="{!join(',', 
