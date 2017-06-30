@@ -1,7 +1,8 @@
 <aura:component description="NewTodoList" controller="TodoController">
     <ltng:require scripts="{!join(',',
                     $Resource.redux,
-                    $Resource.reduxThunk)}"
+                    $Resource.reduxThunk,
+                    $Resource.reselect)}"
                   afterScriptsLoaded="{!c.doInit}"/>
     <aura:attribute required="false" name="todoList" description="Todos" access="public" type="Todo__c[]" />
 

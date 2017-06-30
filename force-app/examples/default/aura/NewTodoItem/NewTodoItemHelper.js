@@ -87,15 +87,24 @@
         }
     },
 
-    getTodoStatus: function(component, state) {
+    todoSelector: function(state) {
+        return state.todos;
+    },
+
+    componentSelector: function(state, component) {
+        if(component.isInstanceOf("c:NewTodoItem")) {
+            return component;
+        }
+    },
+
+    getTodoStatus: function(todos, component) {
         var status = component.get("v.completed");
         var currentTodo = component.get("v.todo");
-        state.todos.map(function(todo) {
-             if(currentTodo && currentTodo.Id && currentTodo.Id === todo.Id) {
-                 status = todo.Completed__c;
-             }
+        todos.map(function(todo) {
+            if(currentTodo.Id === todo.Id) {
+                status = todo.Completed__c;
+            }
         });
-
         return status;
     }
 })
