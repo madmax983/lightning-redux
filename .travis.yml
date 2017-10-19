@@ -8,7 +8,7 @@ addons:
     packages:
       - google-chrome-stable
 env:
-- URL=https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
+- URL=https://developer.salesforce.com/media/salesforce-cli/sfdx-v5.6.22-f9533ba-linux-amd64.tar.xz
 before_install:
 - openssl aes-256-cbc -K $encrypted_bc21448d0b37_key -iv $encrypted_bc21448d0b37_iv
   -in assets/server.key.enc -out assets/server.key -d
