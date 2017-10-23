@@ -13,26 +13,29 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_bc21448d0b37_key -iv $encrypted_bc21448d0b37_iv
   -in assets/server.key.enc -out assets/server.key -d
 - wget -qO- $URL | tar xJf -
-- export DISPLAY=:99.0
-- export SFDX_AUTOUPDATE_DISABLE=true
-- export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
-- export SFDX_DOMAIN_RETRY=300
-- sh -e /etc/init.d/xvfb start
-- "./sfdx/install"
+- ./sfdx/install
+
+
 - export PATH=./sfdx/$(pwd):$PATH
 - sfdx update
 - sfdx --version
 - sfdx plugins --core
 - export PATH=./heroku/$(pwd):$PATH
 before_script:
-- export SFDX_DISABLE_ENCRYPTION=true
-- sfdx force --help
+- "export DISPLAY=:99.0"
+- "sh -e /etc/init.d/xvfb start"
+- sleep 3 # give xvfb some time to start
+- heroku plugins:install salesforce-lightning-cli
+- export SFDX_USE_GENERIC_UNIX_KEYCHAIN=true
+- export SFDX_DOMAIN_RETRY=300
+- export SFDX_AUTOUPDATE_DISABLE=true
+- sfdx plugins:install salesforcedx
 - sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.key
   --username $USERNAME --setdefaultdevhubusername -a HubOrg
 script:
 - sfdx force:org:create -v HubOrg -s -f config/project-scratch-def.json -a ciorg
 - sfdx force:source:push -u ciorg
 - sfdx force:apex:test:run -u ciorg -c -r human
-- sfdx force:lightning:test:run -u ciorg
-- sleep 4m
+- sfdx force:lightning:test:run -a Tests.app -u ciorg
+- sleep 4
 - sfdx force:org:delete -u ciorg -p
