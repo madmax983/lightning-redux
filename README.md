@@ -27,7 +27,7 @@ middleware: You can include redux middleware like redux-thunk here. Lightning-Re
 
 **connect(mapStateToAttributes, target):** mapStateToAttributes either a key pair object where the key is the attribute on the component you want set, and the value is either the value in the redux state graph, or a callback function. mapStateToAttributes can also be a function that returns this key pair value. This function receives the state and component to compute the value. You can pass the component you want connected, but if it isn't populated, it will get populated by event.getSource(). It also sets a dispatch expando for convenience in the component's controller methods. 
 
-**getState():** Technically not a component method, this is a convenience expando that allows access to the Redux state.
+**getState():** Retrieves the store state.
 
 ## Installation
 Lightning-Redux Unmanaged Packaged (Redux Component, redux, redux-thunk, and reselect static resource): https://login.salesforce.com/packaging/installPackage.apexp?p0=04t50000000M7PY
