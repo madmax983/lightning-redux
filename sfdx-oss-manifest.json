@@ -1,0 +1,18 @@
+{
+  "sfdxSource": true,
+  "version": "2.2.0",
+  "files": [
+    [
+      "force-app/main/default/staticresources/redux.resource",
+      "force-app/main/default/staticresources/redux.resource-meta.xml",
+      "force-app/main/default/staticresources/reduxThunk.resource",
+      "force-app/main/default/staticresources/reduxThunk.resource-meta.xml",
+      "force-app/main/default/staticresources/reselect.resource",
+      "force-app/main/default/staticresources/reselect.resource-meta.xml",
+      "force-app/main/default/aura/Redux/Redux.cmp",
+      "force-app/main/default/aura/Redux/Redux.cmp-meta.xml",
+      "force-app/main/default/aura/Redux/ReduxController.js",
+      "force-app/main/default/aura/Redux/Redux.auradoc"
+    ]
+  ]
+}
