@@ -1,5 +1,10 @@
 ({
+    doInit: function(component, event, helper) {
+
+    },
+    
     createStore: function(component, event) {
+        var reduxName = component.get("v.name");
         var params = event.getParam("arguments");
 
         if(params && Redux) {
@@ -13,35 +18,35 @@
             var reducerObject = {};
             reducerObject[reducerName] = rootReducer;
 
-            if(window.reducerQueue) {
-                combinedReducer = Redux.combineReducers(Object.assign({}, reducerObject, window.reducerQueue));
-                window.reducerRegistry = Object.assign({}, window.reducerRegistry, reducerObject, window.reducerQueue);
-            } else {
+            if(window.reducerQueue && window.reducerQueue[reduxName]) {
+                combinedReducer = Redux.combineReducers(Object.assign({}, reducerObject, window.reducerQueue[reduxName]));
+                window.reducerRegistry[reduxName] = Object.assign({}, window.reducerRegistry[reduxName], reducerObject, window.reducerQueue[reduxName]);
+            } else if(window.reducerRegistry && window.reducerRegistry[reduxName]) {
                 combinedReducer = Redux.combineReducers(reducerObject);
-                window.reducerRegistry = Object.assign({}, window.reducerRegistry, reducerObject);
+                window.reducerRegistry[reduxName] = Object.assign({}, window.reducerRegistry[reduxName], reducerObject);
             }
 
 
             if(!window.reduxStore) {
                 if (rootReducer && initialState && middleware) {
-                    window.reduxStore = Redux.createStore(combinedReducer, initialState, Redux.compose(Redux.applyMiddleware(middleware)));
+                    window.reduxStore[reduxName] = Redux.createStore(combinedReducer, initialState, Redux.compose(Redux.applyMiddleware(middleware)));
                 } else if (rootReducer && initialState && !middleware) {
-                    window.reduxStore = Redux.createStore(combinedReducer, initialState);
+                    window.reduxStore[reduxName] = Redux.createStore(combinedReducer, initialState);
                 } else if (rootReducer && !initialState && !middleware) {
-                    window.reduxStore = Redux.createStore(combinedReducer);
+                    window.reduxStore[reduxName] = Redux.createStore(combinedReducer);
                 }
             } else {
                 component.registerReducer(reducerName, rootReducer)
             }
 
-            if(window.subscriberQueue) {
-                window.subscriberQueue.map(function(subscriber) {
+            if(window.subscriberQueue && window.subscriberQueue[reduxName]) {
+                window.subscriberQueue[reduxName].map(function(subscriber) {
                     component.connect(subscriber.mapStateToAttributes, subscriber.target);
                 });
             }
 
-            if(window.dispatchQueue) {
-                window.dispatchQueue.map(function(action) {
+            if(window.dispatchQueue && window.dispatchQueue[reduxName]) {
+                window.dispatchQueue[reduxName].map(function(action) {
                    component.dispatch(action);
                 });
             }
@@ -49,49 +54,54 @@
     },
 
     getState: function() {
-        if(window.reduxStore) {
-            return window.reduxStore.getState();
+        var reduxName = component.get("v.name");
+        if(window.reduxStore && window.reduxStore[reduxName]) {
+            return window.reduxStore[reduxName].getState();
         } else {
             return null;
         }
     },
 
     dispatch: function(component, event) {
+        var reduxName = component.get("v.name");
         var params = event.getParam("arguments");
 
         var action = params ? params.action : null;
         if(action) {
-            if(window.reduxStore) {
-                window.reduxStore.dispatch(action);
+            if(window.reduxStore && window.reduxStore[reduxName]) {
+                window.reduxStore[reduxName].dispatch(action);
             } else {
-                if(window.dispatchQueue) {
-                    window.dispatchQueue.push(action);
+                if(window.dispatchQueue && window.dispatchQueue[reduxName]) {
+                    window.dispatchQueue[reduxName].push(action);
                 } else {
-                    window.dispatchQueue = [action];
+                    window.dispatchQueue[reduxName] = [action];
                 }
             }
         }
     },
 
     subscribe: function(component, event) {
+        var reduxName = component.get("v.name");
         var params = event.getParam("arguments");
         var listener = params ? params.listener : null;
 
-        if(listener && window.reduxStore) {
-            window.reduxStore.subscribe(listener);
+        if(listener && window.reduxStore && window.reduxStore[reduxName]) {
+            window.reduxStore[reduxName].subscribe(listener);
         }
     },
 
     replaceReducer: function(component, event) {
+        var reduxName = component.get("v.name");
         var params = event.getParam("arguments");
         var nextReducer = params ? params.nextReducer : null;
 
-        if(nextReducer && window.reduxStore) {
-            window.reduxStore.replaceReducer(nextReducer);
+        if(nextReducer && window.reduxStore && window.reduxStore[reduxName]) {
+            window.reduxStore[reduxName].replaceReducer(nextReducer);
         }
     },
 
     registerReducer: function(component, event) {
+        var reduxName = component.get("v.name");
         var params = event.getParam("arguments");
         var name = params ? params.name : null;
         var reducer = params ? params.reducer : null;
@@ -100,21 +110,22 @@
             var reducerObject = {};
             reducerObject[name] = reducer;
 
-            if(window.reduxStore) {
-                var newRootReducer = Redux.combineReducers(Object.assign({}, window.reducerRegistry, reducerObject));
-                window.reducerRegistry = Object.assign({}, window.reducerRegistry, reducerObject);
-                window.reduxStore.replaceReducer(newRootReducer);
+            if(window.reduxStore && window.reduxStore[reduxName]) {
+                var newRootReducer = Redux.combineReducers(Object.assign({}, window.reducerRegistry[reduxName], reducerObject));
+                window.reducerRegistry[reduxName] = Object.assign({}, window.reducerRegistry[reduxName], reducerObject);
+                window.reduxStore[reduxName].replaceReducer(newRootReducer);
             } else {
-                if(window.reducerQueue){
-                    window.reducerQueue = Object.assign({}, window.reducerQueue, reducerObject);
+                if(window.reducerQueue && window.reducerQueue[reduxName]){
+                    window.reducerQueue[reduxName] = Object.assign({}, window.reducerQueue, reducerObject);
                 } else {
-                    window.reducerQueue = reducerObject;
+                    window.reducerQueue[reduxName] = reducerObject;
                 }
             }
         }
     },
 
     connect: function(component, event) {
+        var reduxName = component.get("v.name");
         var params = event.getParam("arguments");
         var mapStateToAttributes = params ? params.mapStateToAttributes : null;
         var target = params && params.target ? params.target : event.getSource();
@@ -123,10 +134,10 @@
             mapStateToAttributes = mapStateToAttributes();
         }
 
-        if(window.reduxStore) {
+        if(window.reduxStore && window.reduxStore[reduxName]) {
             function handleChanges(){
                 if(target.isValid()) {
-                    var state = window.reduxStore.getState();
+                    var state = window.reduxStore[reduxName].getState();
 
                     for(var key in mapStateToAttributes) {
                         if(mapStateToAttributes.hasOwnProperty(key)) {
@@ -147,16 +158,16 @@
 
             handleChanges();
 
-            window.reduxStore.subscribe(handleChanges);
-            target.dispatch = window.reduxStore.dispatch;
+            window.reduxStore[reduxName].subscribe(handleChanges);
+            target.dispatch = window.reduxStore[reduxName].dispatch;
         } else {
-            if(window.subscriberQueue) {
-                window.subscriberQueue.push({
+            if(window.subscriberQueue && window.subscriberQueue[reduxName]) {
+                window.subscriberQueue[reduxName].push({
                     target: target,
                     mapStateToAttributes: mapStateToAttributes
                 });
             } else {
-                window.subscriberQueue = [{
+                window.subscriberQueue[reduxName] = [{
                     target: target,
                     mapStateToAttributes: mapStateToAttributes
                 }];
