@@ -1,7 +1,8 @@
 <aura:component description="Redux">
     <ltng:require scripts="{!$Resource.redux}"/>
+    <aura:attribute name="name" type="string" default="redux" />
     <aura:method name="createStore" action="{!c.createStore}">
-        <aura:attribute name="name" type="string" default="redux" />
+        <aura:attribute name="name" type="string" />
         <aura:attribute name="rootReducer" type="Map" />
         <aura:attribute name="initialState" type="Map" />
         <aura:attribute name="middleware" type="Map" />

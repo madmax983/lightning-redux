@@ -1,8 +1,4 @@
 ({
-    doInit: function(component, event, helper) {
-
-    },
-    
     createStore: function(component, event) {
         var reduxName = component.get("v.name");
         var params = event.getParam("arguments");
