@@ -20,10 +20,17 @@
             } else if(window.reducerRegistry && window.reducerRegistry[reduxName]) {
                 combinedReducer = Redux.combineReducers(reducerObject);
                 window.reducerRegistry[reduxName] = Object.assign({}, window.reducerRegistry[reduxName], reducerObject);
+            } else {
+                combinedReducer = Redux.combineReducers(reducerObject);
+                window.reducerRegistry = Object.assign({}, window.reducerRegistry, {
+                  [reduxName]: Object.assign({}, window.reducerRegistry ? window.reducerRegistry[reduxName] : {}, reducerObject)
+                });
             }
 
 
-            if(!window.reduxStore) {
+            window.reduxStore = window.reduxStore || {};
+
+            if(!window.reduxStore[reduxName]) {
                 if (rootReducer && initialState && middleware) {
                     window.reduxStore[reduxName] = Redux.createStore(combinedReducer, initialState, Redux.compose(Redux.applyMiddleware(middleware)));
                 } else if (rootReducer && initialState && !middleware) {
@@ -49,7 +56,7 @@
         }
     },
 
-    getState: function() {
+    getState: function(component) {
         var reduxName = component.get("v.name");
         if(window.reduxStore && window.reduxStore[reduxName]) {
             return window.reduxStore[reduxName].getState();
