@@ -77,6 +77,7 @@
                 if(window.dispatchQueue && window.dispatchQueue[reduxName]) {
                     window.dispatchQueue[reduxName].push(action);
                 } else {
+                    window.dispatchQueue = {};
                     window.dispatchQueue[reduxName] = [action];
                 }
             }
@@ -119,8 +120,9 @@
                 window.reduxStore[reduxName].replaceReducer(newRootReducer);
             } else {
                 if(window.reducerQueue && window.reducerQueue[reduxName]){
-                    window.reducerQueue[reduxName] = Object.assign({}, window.reducerQueue, reducerObject);
+                    window.reducerQueue[reduxName] = Object.assign({}, window.reducerQueue[reduxName], reducerObject);
                 } else {
+                    window.reducerQueue = {};
                     window.reducerQueue[reduxName] = reducerObject;
                 }
             }
@@ -170,6 +172,7 @@
                     mapStateToAttributes: mapStateToAttributes
                 });
             } else {
+                window.subscriberQueue = {};
                 window.subscriberQueue[reduxName] = [{
                     target: target,
                     mapStateToAttributes: mapStateToAttributes
