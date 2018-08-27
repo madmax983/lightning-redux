@@ -314,6 +314,368 @@ describe("Redux Tests", function() {
         });
     });
 
+    describe('Test Multiple Stores', function() {
+
+        it('has the ability to create multiple stores', function(done) {
+            var renderInto = document.getElementById("renderTestComponents");
+            $T.createComponent("c:Redux", {"aura:id": "redux"}, renderInto)
+                .then(function(component) {
+                    function counterReducer(state, action) {
+                        switch (action.type) {
+                            case 'INCREMENT':
+                                return state + 1;
+                            case 'DECREMENT':
+                                return state - 1;
+                            default:
+                                var defaultState = 0;
+                                return defaultState;
+                        }
+                    }
+                    component.createStore("counter", counterReducer);
+                    component.dispatch({type: 'INCREMENT'});
+                    expect(component.getState().counter).toBe(1);
+            }).catch(function(e) {
+                console.log(e);
+            });
+
+            $T.createComponent("c:Redux", {"aura:id": "hoemi", name: "hoemi"}, renderInto)
+                .then(function(component) {
+                    function counterReducer(state, action) {
+                        switch (action.type) {
+                            case 'INCREMENT':
+                                return state + 1;
+                            case 'DECREMENT':
+                                return state - 1;
+                            default:
+                                var defaultState = 0;
+                                return defaultState;
+                        }
+                    }
+                    component.createStore("counter", counterReducer);
+                    component.dispatch({type: 'DECREMENT'});
+                    var renderedDivElements = $A.getComponent(renderInto).get("v.body");
+                    for(var el of renderedDivElements) {
+                        if(el.getLocalId() == "redux") {
+                           expect(el.getState().counter).toBe(1);
+                        }
+                    }
+                    expect(component.getState().counter).toBe(-1);
+                    done();
+            }).catch(function(e) {
+                done.fail(e);
+            });
+        });
+
+        it('dispatch and dispatch queues work with Multiple stores', function(done) {
+                var renderInto = document.getElementById("renderTestComponents");
+                $T.createComponent("c:Redux", {"aura:id": "reduxDispatch"}, renderInto)
+                    .then(function(component) {
+
+                        component.dispatch({type: 'INCREMENT'});
+
+                        function counterReducer(state, action) {
+                            switch (action.type) {
+                                case 'INCREMENT':
+                                    return state + 1;
+                                case 'DECREMENT':
+                                    return state - 1;
+                                default:
+                                    var defaultState = 0;
+                                    return defaultState;
+                            }
+                        }
+                        component.createStore("counter", counterReducer);
+
+                        expect(component.getState().counter).toBe(1);
+                }).catch(function(e) {
+                    console.log(e);
+                });
+
+                $T.createComponent("c:Redux", {"aura:id": "hoemiDispatch", name: "hoemi"}, renderInto)
+                    .then(function(component) {
+
+                        component.dispatch({type: 'DECREMENT'});
+
+                        function counterReducer(state, action) {
+                            switch (action.type) {
+                                case 'INCREMENT':
+                                    return state + 1;
+                                case 'DECREMENT':
+                                    return state - 1;
+                                default:
+                                    var defaultState = 0;
+                                    return defaultState;
+                            }
+                        }
+                        component.createStore("counter", counterReducer);
+                        var renderedDivElements = $A.getComponent(renderInto).get("v.body");
+                        for(var el of renderedDivElements) {
+                            if(el.getLocalId() == "reduxDispatch") {
+                               expect(el.getState().counter).toBe(1);
+                            }
+                        }
+                        expect(component.getState().counter).toBe(-1);
+                        done();
+                }).catch(function(e) {
+                    done.fail(e);
+                });
+            });
+
+            it('subscribe and subscribe queue works with Multiple stores', function(done) {
+                var renderInto = document.getElementById("renderTestComponents");
+                $T.createComponent("c:Redux", {"aura:id": "reduxSubscribe"}, renderInto)
+                    .then(function(component) {
+
+                        function counterReducer(state, action) {
+                            switch (action.type) {
+                                case 'INCREMENT':
+                                    return state + 1;
+                                case 'DECREMENT':
+                                    return state - 1;
+                                default:
+                                    var defaultState = 0;
+                                    return defaultState;
+                            }
+                        }
+
+                        function handleChanges() {
+                            component.handleChangesFired = !component.handleChangesFired;
+                        }
+
+                        component.createStore("counter", counterReducer);
+                        component.subscribe(handleChanges);
+                        component.dispatch({type: 'INCREMENT'});
+                        expect(component.handleChangesFired).toBe(true);
+                }).catch(function(e) {
+                    console.log(e);
+                });
+
+                $T.createComponent("c:Redux", {"aura:id": "hoemiSubscribe", name: "hoemi"}, renderInto)
+                    .then(function(component) {
+
+                        function handleChanges() {
+                            component.handleChangesFired = !component.handleChangesFired;
+                        }
+
+                        component.subscribe(handleChanges());
+
+                        component.dispatch({type: 'DECREMENT'});
+
+                        function counterReducer(state, action) {
+                            switch (action.type) {
+                                case 'INCREMENT':
+                                    return state + 1;
+                                case 'DECREMENT':
+                                    return state - 1;
+                                default:
+                                    var defaultState = 0;
+                                    return defaultState;
+                            }
+                        }
+
+
+
+                        component.createStore("counter", counterReducer);
+                        var renderedDivElements = $A.getComponent(renderInto).get("v.body");
+                        for(var el of renderedDivElements) {
+                            if(el.getLocalId() == "reduxSubscribe") {
+                                el.dispatch({type: 'DECREMENT'});
+                                expect(el.handleChangesFired).toBe(false);
+                            }
+                        }
+                        expect(component.handleChangesFired).toBe(true);
+                        done();
+                }).catch(function(e) {
+                    done.fail(e);
+                });
+            });
+
+            it('replaceReducer works with Multiple stores', function(done) {
+                var renderInto = document.getElementById("renderTestComponents");
+                $T.createComponent("c:Redux", {"aura:id": "reduxReplace"}, renderInto)
+                    .then(function(component) {
+
+                        function helloWorldReducer() {
+                            return "Hello World";
+                        }
+
+                        function counterReducer(state, action) {
+                            switch (action.type) {
+                                case 'INCREMENT':
+                                    return state + 1;
+                                case 'DECREMENT':
+                                    return state - 1;
+                                default:
+                                    var defaultState = 0;
+                                    return defaultState;
+                            }
+                        }
+
+                        component.createStore("helloWorld", helloWorldReducer);
+                        expect(component.getState().helloWorld).toBe("Hello World");
+                        component.replaceReducer(counterReducer);
+                        expect(component.getState()).toBe(0);
+                }).catch(function(e) {
+                    console.log(e);
+                });
+
+                $T.createComponent("c:Redux", {"aura:id": "hoemiReplace", name: "hoemi"}, renderInto)
+                    .then(function(component) {
+
+                        function helloWorldReducer() {
+                            return "Hello World";
+                        }
+
+                        function counterReducer(state, action) {
+                            switch (action.type) {
+                                case 'INCREMENT':
+                                    return state + 1;
+                                case 'DECREMENT':
+                                    return state - 1;
+                                default:
+                                    var defaultState = 0;
+                                    return defaultState;
+                            }
+                        }
+
+
+
+                        component.createStore("counter", counterReducer);
+                        expect(component.getState().counter).toBe(0);
+                        var renderedDivElements = $A.getComponent(renderInto).get("v.body");
+                        for(var el of renderedDivElements) {
+                            if(el.getLocalId() == "reduxReplace") {
+                                el.replaceReducer(helloWorldReducer);
+                                expect(el.getState()).toBe("Hello World");
+                            }
+                        }
+                        component.replaceReducer(helloWorldReducer)
+                        expect(component.getState()).toBe("Hello World");
+                        done();
+                }).catch(function(e) {
+                    done.fail(e);
+                });
+            });
+
+            it('registerReducer works with Multiple stores', function(done) {
+                var renderInto = document.getElementById("renderTestComponents");
+                $T.createComponent("c:Redux", {"aura:id": "reduxRegister"}, renderInto)
+                    .then(function(component) {
+
+                        function helloWorldReducer() {
+                            return "Hello World";
+                        }
+
+                        function counterReducer(state, action) {
+                            switch (action.type) {
+                                case 'INCREMENT':
+                                    return state + 1;
+                                case 'DECREMENT':
+                                    return state - 1;
+                                default:
+                                    var defaultState = 0;
+                                    return defaultState;
+                            }
+                        }
+
+                        component.createStore("helloWorld", helloWorldReducer);
+                        expect(component.getState().helloWorld).toBe("Hello World");
+                        component.registerReducer("counter", counterReducer);
+                        expect(component.getState().counter).toBe(0);
+                        component.dispatch({type: "INCREMENT"});
+                        expect(component.getState().counter).toBe(1);
+                }).catch(function(e) {
+                    console.log(e);
+                });
+
+                $T.createComponent("c:Redux", {"aura:id": "hoemiRegister", name: "hoemi"}, renderInto)
+                    .then(function(component) {
+
+                        function helloWorldReducer() {
+                            return "Hello World";
+                        }
+
+                        function counterReducer(state, action) {
+                            switch (action.type) {
+                                case 'INCREMENT':
+                                    return state + 1;
+                                case 'DECREMENT':
+                                    return state - 1;
+                                default:
+                                    var defaultState = 0;
+                                    return defaultState;
+                            }
+                        }
+
+
+
+                        component.createStore("helloWorld", helloWorldReducer);
+                        expect(component.getState().helloWorld).toBe("Hello World");
+                        component.registerReducer("counter", counterReducer);
+                        expect(component.getState().counter).toBe(0);
+                        var renderedDivElements = $A.getComponent(renderInto).get("v.body");
+                        for(var el of renderedDivElements) {
+                            if(el.getLocalId() == "reduxRegister") {
+                                el.registerReducer("helloWorld", helloWorldReducer);
+                                expect(el.getState().helloWorld).toBe("Hello World");
+                            }
+                        }
+                        done();
+                }).catch(function(e) {
+                    done.fail(e);
+                });
+            });
+
+             it('connect works with Multiple stores', function(done) {
+                var renderInto = document.getElementById("renderTestComponents");
+                $T.createComponent("c:TestReduxContainer", {"aura:id": "reduxConnect"}, renderInto)
+                    .then(function(component) {
+
+                        var redux = component.find("store");
+
+                        function helloWorldReducer() {
+                            return "Hello World";
+                        }
+
+                        redux.createStore("helloWorld", helloWorldReducer);
+                        var mapStateToAttributes = {
+                            "v.message": "helloWorld"
+                        };
+
+                        redux.connect(mapStateToAttributes, component);
+                        expect(component.get("v.message")).toBe("Hello World");
+                }).catch(function(e) {
+                    console.log(e);
+                });
+
+                $T.createComponent("c:TestReduxContainer", {"aura:id": "hoemiConnect", name: "hoemi"}, renderInto)
+                    .then(function(component) {
+                         var redux = component.find("store");
+
+                        function helloWorldReducer() {
+                            return "ho'ēmi don't play that!";
+                        }
+
+                        redux.createStore("helloWorld", helloWorldReducer);
+                        var mapStateToAttributes = {
+                            "v.message": "helloWorld"
+                        };
+
+                        redux.connect(mapStateToAttributes, component);
+                        expect(component.get("v.message")).toBe("ho'ēmi don't play that!");
+                        var renderedDivElements = $A.getComponent(renderInto).get("v.body");
+                        for(var el of renderedDivElements) {
+                            if(el.getLocalId() == "reduxConnect") {
+                                expect(el.find("store").getState().helloWorld).toBe("Hello World");
+                            }
+                        }
+                        done();
+                }).catch(function(e) {
+                    done.fail(e);
+                });
+            });
+        });
+
     describe('Test Library Compatibility', function() {
         it('is compatible with Redux Thunk', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
