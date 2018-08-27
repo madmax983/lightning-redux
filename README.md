@@ -1,9 +1,16 @@
+[![Deploy](https://deploy-to-sfdx.com/dist/assets/images/DeployToSFDX.svg)](https://deploy-to-sfdx.com)
+<a href="https://githubsfdeploy.herokuapp.com">
+  <img alt="Deploy to Salesforce"
+       src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
+</a>
+
 # Lightning-Redux [![Build Status](https://travis-ci.org/madmax983/lightning-redux.svg?branch=master)](https://travis-ci.org/madmax983/lightning-redux)
 
 [Redux](http://redux.js.org/) bindings for the [Lightning Component Framework](https://developer.salesforce.com/docs/atlas.en-us.lightning.meta/lightning/intro_framework.htm)
 
 ## Usage
 The new version of Lightning-Redux simplifies the previous iteration down to a single Redux component. It serves as a wrapper around Redux itself, along with a few helper methods specific to Lightning.
+It has one attribute to specify, which is the name of the store you would like to create. This name defaults to "redux" if no name is specified.
 
 ### Component Methods
 ####
