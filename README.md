@@ -37,11 +37,9 @@ middleware: You can include redux middleware like redux-thunk here. Lightning-Re
 **getState():** Retrieves the store state.
 
 ## Installation
-Lightning-Redux Unmanaged Packaged (Redux Component, redux, redux-thunk, and reselect static resource): https://login.salesforce.com/packaging/installPackage.apexp?p0=04t50000000M7R0
+Use the deployment buttons above to deploy to either a scratch org, or a developer org.
 
-Lightning-Redux-Examples (Counter and Todo Examples unmanaged package): https://login.salesforce.com/packaging/installPackage.apexp?p0=04t50000000M7RA
-
-Otherwise, you can use the SFDX CLI to convert the source and do a metadata deploy.
+Otherwise, you can use the SFDX CLI and do a metadata deploy.
 
 ## Resources
 Redux Documentation: http://redux.js.org/
