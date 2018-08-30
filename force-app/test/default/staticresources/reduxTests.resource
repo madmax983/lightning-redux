@@ -198,6 +198,42 @@ describe("Redux Tests", function() {
                 done.fail(e);
             });
         });
+
+        it('unsubscribes when destroyed', function(done) {
+            var renderInto = document.getElementById("renderTestComponents");
+            $T.createComponent("c:TestReduxContainer", {}, renderInto)
+                .then(function(component) {
+
+                    var redux = component.find("store");
+
+                    var toggle = false;
+                    function toggleReducer(state, action) {
+                        toggle = !toggle;
+                        if(toggle) {
+                            return "Toggle is True";
+                        } else {
+                            return "Toggle is False";
+                        }
+                    }
+
+                    redux.createStore("toggle", toggleReducer);
+
+                    var mapStateToAttributes = {
+                        "v.message": "toggle"
+                    };
+
+                    redux.connect(mapStateToAttributes, component);
+                    expect(component.get("v.message")).toBe("Toggle is True");
+                    component.dispatch({type: "INCREMENT"});
+                    expect(component.get("v.message")).toBe("Toggle is False");
+                    component.destroy();
+                    component.dispatch({type: "INCREMENT"});
+                    expect(component.get("v.message")).toBe("Toggle is True");
+                    done();
+                }).catch(function(e) {
+                done.fail(e);
+            });
+        });
     });
 
     describe('Test Queueing', function() {

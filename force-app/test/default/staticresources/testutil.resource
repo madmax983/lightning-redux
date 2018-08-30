@@ -114,7 +114,9 @@
         while (cmpsToCleanup.length) {
             var globalId = cmpsToCleanup.shift();
             var cmp = $A.getComponent(globalId);
-            cmp.destroy();
+            if(cmp && cmp.isValid()) {
+                cmp.destroy();
+            }
         }
     }
 
