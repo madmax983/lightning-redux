@@ -1,5 +1,6 @@
 <aura:component description="Redux">
     <ltng:require scripts="{!$Resource.redux}"/>
+    <aura:handler name="destroy" value="{!this}" action="{!c.handleUnsubscribe}"/>
     <aura:attribute name="name" type="string" default="redux" />
     <aura:method name="createStore" action="{!c.createStore}">
         <aura:attribute name="name" type="string" />

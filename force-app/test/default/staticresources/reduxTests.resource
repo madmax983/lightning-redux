@@ -198,6 +198,58 @@ describe("Redux Tests", function() {
                 done.fail(e);
             });
         });
+
+        it('unsubscribes when destroyed', function(done) {
+            var renderInto = document.getElementById("renderTestComponents");
+            var originalComponent;
+            var called = 0;
+            $T.createComponent("c:Redux", {}, renderInto)
+                .then(function(component) {
+                    originalComponent = component;
+                    function reducer(state, action) {
+                        switch (action.type) {
+                            case 'INCREMENT':
+                                return state + 1;
+                            case 'DECREMENT':
+                                return state - 1;
+                            default:
+                                var defaultState = 0;
+                                return defaultState;
+                        }
+                    }
+
+                    function handleChanges() {
+                        called++;
+                    }
+
+                    component.createStore("counter", reducer);
+                    component.unsubscribe = component.subscribe(handleChanges);
+                    component.dispatch({type: "INCREMENT"});
+
+                    expect(called).toBe(1);
+                    component.dispatch({type: "INCREMENT"});
+                    expect(called).toBe(2);
+                }).catch(function(e) {
+                done.fail(e);
+            });
+
+            $T.createComponent("c:Redux", {}, renderInto)
+                .then(function(component) {
+                    function reducer(state, action) {
+                        return "Hello World"
+                    }
+
+                    originalComponent.destroy();
+                    component.createStore("helloWorld", reducer);
+                    component.dispatch({type: "INCREMENT"});
+
+                    component.dispatch({type: "INCREMENT"});
+                    expect(called).toBe(2);
+                    done();
+                }).catch(function(e) {
+                done.fail(e);
+            });
+        });
     });
 
     describe('Test Queueing', function() {
