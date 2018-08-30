@@ -1,0 +1,41 @@
+<aura:documentation>
+	<aura:description>
+		<p>Redux bindings for the Lightning Component Framework</p>
+		<p>Component Methods</p>
+        	<code>createStore(name, reducer, initialState, middleware)</code>
+		<br/>
+			Creates the Redux store.
+		<br/>
+			name: The name of the slice of state for the reducer creating the store.
+		<br/>
+            reducer: Initial root reducer
+		<br/>
+            initialState: You can specify an initial shape to your store's shape.
+		<br/>
+            middleware: You can include redux middleware like redux-thunk here. Lightning-Redux automatically wraps this with Redux compose.
+		<br/>
+			<code>dispatch(action)</code>
+		<br/>
+			Dispatches the action to the Redux store. Fun fact: connect also sets a dispatch expando on the connected component for convenience.
+		<br/>
+			<code>subscribe(listener)</code>
+        <br/>
+         	This shouldn't be needed to be implemented, but is provided in case you want to write a custom connect method. The listener callback will be called on store updates.
+        <br/>
+            <code>replaceReducer(nextReducer)</code>
+        <br/>
+			Wraps Redux's replaceReducer function. Replaces the reducer function in the redux store.
+        <br/>
+			<code>registerReducer(name, reducer)</code>
+        <br/>
+			Adds the specified reducer function to the redux store with the specificed name as it's slice of state.
+        <br/>
+            <code>connect(mapStateToAttributes, target)</code>
+        <br/>
+			mapStateToAttributes either a key pair object where the key is the attribute on the component you want set, and the value is either the value in the redux state graph, or a callback function. mapStateToAttributes can also be a function that returns this key pair value. This function receives the state and component to compute the value. You can pass the component you want connected, but if it isn't populated, it will get populated by event.getSource(). It also sets a dispatch expando for convenience in the component's controller methods.
+        <br/>
+			<code>getState()</code>
+        <br/>
+			Retrieves the store state.
+	</aura:description>
+</aura:documentation>

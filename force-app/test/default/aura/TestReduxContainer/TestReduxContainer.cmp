@@ -1,4 +1,5 @@
 <aura:component description="TestReduxContainer">
+    <aura:attribute name="name" type="string" default="redux"/>
     <aura:attribute name="message" type="string" />
-    <c:Redux aura:id="store"/>
+    <c:Redux aura:id="store" name="{!v.name}"/>
 </aura:component>

@@ -1,9 +1,16 @@
+[![Deploy](https://deploy-to-sfdx.com/dist/assets/images/DeployToSFDX.svg)](https://deploy-to-sfdx.com)
+<a href="https://githubsfdeploy.herokuapp.com">
+  <img alt="Deploy to Salesforce"
+       src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
+</a>
+
 # Lightning-Redux [![Build Status](https://travis-ci.org/madmax983/lightning-redux.svg?branch=master)](https://travis-ci.org/madmax983/lightning-redux)
 
 [Redux](http://redux.js.org/) bindings for the [Lightning Component Framework](https://developer.salesforce.com/docs/atlas.en-us.lightning.meta/lightning/intro_framework.htm)
 
 ## Usage
 The new version of Lightning-Redux simplifies the previous iteration down to a single Redux component. It serves as a wrapper around Redux itself, along with a few helper methods specific to Lightning.
+It has one attribute to specify, which is the name of the store you would like to create. This name defaults to "redux" if no name is specified.
 
 ### Component Methods
 ####
@@ -30,11 +37,9 @@ middleware: You can include redux middleware like redux-thunk here. Lightning-Re
 **getState():** Retrieves the store state.
 
 ## Installation
-Lightning-Redux Unmanaged Packaged (Redux Component, redux, redux-thunk, and reselect static resource): https://login.salesforce.com/packaging/installPackage.apexp?p0=04t50000000M7R0
+Use the deployment buttons above to deploy to either a scratch org, or a developer org.
 
-Lightning-Redux-Examples (Counter and Todo Examples unmanaged package): https://login.salesforce.com/packaging/installPackage.apexp?p0=04t50000000M7RA
-
-Otherwise, you can use the SFDX CLI to convert the source and do a metadata deploy.
+Otherwise, you can use the SFDX CLI and do a metadata deploy.
 
 ## Resources
 Redux Documentation: http://redux.js.org/
