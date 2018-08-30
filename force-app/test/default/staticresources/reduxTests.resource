@@ -201,34 +201,50 @@ describe("Redux Tests", function() {
 
         it('unsubscribes when destroyed', function(done) {
             var renderInto = document.getElementById("renderTestComponents");
-            $T.createComponent("c:TestReduxContainer", {}, renderInto)
+            var originalComponent;
+            var called = 0;
+            $T.createComponent("c:Redux", {}, renderInto)
                 .then(function(component) {
-
-                    var redux = component.find("store");
-
-                    var toggle = false;
-                    function toggleReducer(state, action) {
-                        toggle = !toggle;
-                        if(toggle) {
-                            return "Toggle is True";
-                        } else {
-                            return "Toggle is False";
+                    originalComponent = component;
+                    function reducer(state, action) {
+                        switch (action.type) {
+                            case 'INCREMENT':
+                                return state + 1;
+                            case 'DECREMENT':
+                                return state - 1;
+                            default:
+                                var defaultState = 0;
+                                return defaultState;
                         }
                     }
 
-                    redux.createStore("toggle", toggleReducer);
+                    function handleChanges() {
+                        called++;
+                    }
 
-                    var mapStateToAttributes = {
-                        "v.message": "toggle"
-                    };
+                    component.createStore("counter", reducer);
+                    component.unsubscribe = component.subscribe(handleChanges);
+                    component.dispatch({type: "INCREMENT"});
 
-                    redux.connect(mapStateToAttributes, component);
-                    expect(component.get("v.message")).toBe("Toggle is True");
+                    expect(called).toBe(1);
                     component.dispatch({type: "INCREMENT"});
-                    expect(component.get("v.message")).toBe("Toggle is False");
-                    component.destroy();
+                    expect(called).toBe(2);
+                }).catch(function(e) {
+                done.fail(e);
+            });
+
+            $T.createComponent("c:Redux", {}, renderInto)
+                .then(function(component) {
+                    function reducer(state, action) {
+                        return "Hello World"
+                    }
+
+                    originalComponent.destroy();
+                    component.createStore("helloWorld", reducer);
                     component.dispatch({type: "INCREMENT"});
-                    expect(component.get("v.message")).toBe("Toggle is True");
+
+                    component.dispatch({type: "INCREMENT"});
+                    expect(called).toBe(2);
                     done();
                 }).catch(function(e) {
                 done.fail(e);
