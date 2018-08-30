@@ -16,6 +16,7 @@
 
             if(window.reducerQueue && window.reducerQueue[reduxName]) {
                 combinedReducer = Redux.combineReducers(Object.assign({}, reducerObject, window.reducerQueue[reduxName]));
+                window.reducerRegistry = {};
                 window.reducerRegistry[reduxName] = Object.assign({}, window.reducerRegistry[reduxName], reducerObject, window.reducerQueue[reduxName]);
             } else if(window.reducerRegistry && window.reducerRegistry[reduxName]) {
                 combinedReducer = Redux.combineReducers(reducerObject);
@@ -90,7 +91,7 @@
         var listener = params ? params.listener : null;
 
         if(listener && window.reduxStore && window.reduxStore[reduxName]) {
-            window.reduxStore[reduxName].subscribe(listener);
+            return window.reduxStore[reduxName].subscribe(listener);
         }
     },
 
@@ -147,12 +148,7 @@
                     for(var key in mapStateToAttributes) {
                         if(mapStateToAttributes.hasOwnProperty(key)) {
                             if(typeof mapStateToAttributes[key] === "function") {
-                                try {
-                                    var returnedFunction = mapStateToAttributes[key]();
-                                    target.set(key, returnedFunction(state, target));
-                                } catch(e) {
-                                    target.set(key, mapStateToAttributes[key](state, target))
-                                }
+                                target.set(key, mapStateToAttributes[key](state, target))
                             } else {
                                 target.set(key, state[mapStateToAttributes[key]]);
                             }
@@ -163,7 +159,7 @@
 
             handleChanges();
 
-            window.reduxStore[reduxName].subscribe(handleChanges);
+            component.unsubscribe = window.reduxStore[reduxName].subscribe(handleChanges);
             target.dispatch = window.reduxStore[reduxName].dispatch;
         } else {
             if(window.subscriberQueue && window.subscriberQueue[reduxName]) {
@@ -179,6 +175,11 @@
                 }];
             }
         }
+    },
+    handleUnsubscribe: function(component) {
+      if (component.unsubscribe) {
+        component.unsubscribe();
+      }
     }
 
 })
