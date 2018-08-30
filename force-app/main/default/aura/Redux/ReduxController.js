@@ -163,7 +163,7 @@
 
             handleChanges();
 
-            window.reduxStore[reduxName].subscribe(handleChanges);
+            component.unsubscribe = window.reduxStore[reduxName].subscribe(handleChanges);
             target.dispatch = window.reduxStore[reduxName].dispatch;
         } else {
             if(window.subscriberQueue && window.subscriberQueue[reduxName]) {
@@ -179,6 +179,11 @@
                 }];
             }
         }
+    },
+    handleUnsubscribe: function(component) {
+      if (component.unsubscribe) {
+        component.unsubscribe();
+      }
     }
 
 })
