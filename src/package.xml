@@ -7,6 +7,7 @@
   <types>
     <name>StaticResource</name>
     <members>redux</members>
+    <members>reduxSaga</members>
     <members>reduxThunk</members>
     <members>reselect</members>
   </types>

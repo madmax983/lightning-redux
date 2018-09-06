@@ -2,7 +2,8 @@
     <ltng:require scripts="{!join(',',
                     $Resource.redux,
                     $Resource.reduxThunk,
-                    $Resource.reselect)}"
+                    $Resource.reselect,
+                    $Resource.reduxSaga)}"
                   afterScriptsLoaded="{!c.doInit}"/>
     <aura:attribute required="false" name="todoList" description="Todos" access="public" type="Todo__c[]" />
 

@@ -48,24 +48,37 @@
         }
     },
 
-    receiveTodos: function(component) {
-        return function(dispatch) {
-            var action = component.get("c.getTodos");
+    rootSaga: function(){
 
-            action.setCallback(this, function(response){
-                switch(response.getState(response)){
-                    case "SUCCESS":
-                        return dispatch({
-                            type: 'RECIEVE_TODOS',
-                            response: response.getReturnValue()
-                        });
-                    case "ERROR":
-                        break;
-                }
-            });
-
-            $A.enqueueAction(action);
+        function* receiveTodos(action) {
+            try {
+                const todos = yield ReduxSaga.effects.call(fetchTodos, action.component);
+                yield ReduxSaga.effects.put({type: "RECIEVE_TODOS", response: todos});
+            } catch (e) {
+                console.log(e);
+            }
         }
+
+        function fetchTodos(component) {
+            return new Promise($A.getCallback(function(resolve, reject) {
+                var action = component.get("c.getTodos");
+
+                action.setCallback(this, function(response){
+                    switch(response.getState(response)){
+                        case "SUCCESS":
+                            resolve(response.getReturnValue());
+                        case "ERROR":
+                            break;
+                    }
+                });
+
+                $A.enqueueAction(action);
+            }));
+        }
+
+        return function*(){
+            yield ReduxSaga.takeEvery("FETCH_TODOS", receiveTodos);
+        };
     },
 
     todoSelector: function(state, component) {

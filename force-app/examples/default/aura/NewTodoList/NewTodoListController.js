@@ -1,7 +1,8 @@
 ({
     doInit: function(component, event, helper) {
         var store = component.find("store");
-        store.createStore("todos", helper.todoReducer, {}, ReduxThunk.default);
+        let sagaMiddleWare = ReduxSaga.default();
+        store.createStore("todos", helper.todoReducer, {}, sagaMiddleWare);
 
         var getVisibleTodos = Reselect.createSelector([
             helper.todoSelector,
@@ -13,6 +14,7 @@
             "v.todoList": getVisibleTodos
         }
         store.connect(mapStateToAttributes);
-        store.dispatch(helper.receiveTodos(component));
+        sagaMiddleWare.run(helper.rootSaga());
+        store.dispatch({type: "FETCH_TODOS", component: component});
     }
 })
